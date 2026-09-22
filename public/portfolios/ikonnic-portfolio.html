@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ikonnic — Personalized Décor E-Commerce Case Study | Akechi Webcraft Pvt. Ltd.</title>
+<meta name="description" content="How Akechi Webcraft Pvt. Ltd. designed and built Ikonnic.com — a personalized décor and gifting e-commerce store with a photo customization flow and dual-hub fulfilment across India.">
+<link rel="icon" href="akechi-logo.png">
+<meta name="theme-color" content="#1b1210">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ikonnic — Personalized Décor E-Commerce Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta property="og:description" content="How Akechi Webcraft Pvt. Ltd. designed and built Ikonnic.com — a personalized décor and gifting e-commerce store with a photo customization flow and dual-hub fulfilment across India.">
+<meta property="og:image" content="akechi-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ikonnic — Personalized Décor E-Commerce Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta name="twitter:description" content="How Akechi Webcraft Pvt. Ltd. designed and built Ikonnic.com — a personalized décor and gifting e-commerce store with a photo customization flow and dual-hub fulfilment across India.">
+<style>
+  :root{
+    /* Ikonnic brand palette (warm keepsake — amber + rose + chocolate) */
+    --bg:#1b1210;          /* deep chocolate */
+    --bg-soft:#251a16;
+    --surface:#2e211c;
+    --border:#443228;
+    --fg:#faf6f2;
+    --fg-muted:#c4b3a8;
+    --ink:#221712;
+    --brand:#e08a2e;       /* warm amber */
+    --brand-deep:#b45309;  /* amber-700 */
+    --brand-bright:#f5a94b;/* amber-400 */
+    --rose:#e5707e;        /* rose accent */
+    --mist:#fbf5ee;        /* warm cream for body panels */
+    --mist-dark:#f0e3d3;
+    --steel:#ece2d6;
+    --white:#ffffff;
+    --muted:#8a7566;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--white);color:var(--ink);line-height:1.6;}
+  .container{max-width:1080px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3,h4,h5{font-weight:800;letter-spacing:-.02em;}
+  .duo-gradient{background:linear-gradient(90deg,var(--brand-bright),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  /* Top bar */
+  .topbar{background:var(--bg);color:var(--fg-muted);font-size:13px;padding:8px 0;}
+  .topbar .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .topbar span{opacity:.9;}
+
+  /* Nav */
+  header.nav{background:var(--white);border-bottom:1px solid var(--steel);padding:16px 0;}
+  header.nav .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .logo{display:flex;align-items:center;}
+  .logo img{height:48px;width:auto;display:block;}
+  nav.links{display:flex;gap:22px;font-size:14px;}
+  nav.links a{color:var(--ink);text-decoration:none;font-weight:500;}
+  nav.links a:hover{color:var(--brand-deep);}
+  .nav-cta{display:flex;gap:10px;}
+  .btn{display:inline-block;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;}
+  .btn-outline{border:1.5px solid var(--ink);color:var(--ink);background:transparent;}
+  .btn-solid{background:var(--brand-deep);color:var(--white);}
+  .btn-dark{background:var(--bg);color:var(--fg);}
+
+  /* Hero */
+  .hero{background:var(--bg);padding:72px 0 64px;text-align:center;}
+  .hero .badge{display:inline-block;background:var(--bg-soft);border:1px solid var(--border);color:var(--brand-bright);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:22px;}
+  .hero h1{font-size:42px;line-height:1.2;max-width:880px;margin:0 auto 20px;font-weight:800;color:var(--fg);}
+  .hero p.lede{max-width:720px;margin:0 auto;font-size:17px;color:var(--fg-muted);}
+  .hero .site-link{display:inline-block;margin-top:26px;font-size:14px;letter-spacing:1px;font-weight:700;color:var(--rose);text-decoration:none;border-bottom:2px solid var(--rose);}
+  .hero-visual{margin:48px auto 0;max-width:860px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;}
+  .tile{border-radius:14px;min-height:220px;background:linear-gradient(135deg,var(--surface) 0%,var(--bg-soft) 100%);border:1px solid var(--border);position:relative;overflow:hidden;display:flex;align-items:flex-end;}
+  .tile.t2{background:linear-gradient(135deg,var(--brand) 0%,#7c3a10 100%);border:none;}
+  .tile.t3{background:linear-gradient(135deg,#9c3a4a 0%,var(--bg-soft) 100%);border:1px solid var(--border);}
+  .tile .label{width:100%;padding:14px;color:var(--fg);font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:linear-gradient(transparent,rgba(15,8,5,.75));text-align:left;position:relative;z-index:1;}
+  .tile .big{position:absolute;top:38%;left:0;right:0;transform:translateY(-50%);text-align:center;color:var(--fg);}
+  .tile .big .n{font-size:38px;font-weight:900;display:block;line-height:1.1;}
+  .tile .big .d{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;}
+
+  /* Stats strip */
+  .stats-strip{max-width:860px;margin:22px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 12px;}
+  .stat .n{font-size:24px;font-weight:900;}
+  .stat:nth-child(odd) .n{color:var(--brand-bright);}
+  .stat:nth-child(even) .n{color:var(--rose);}
+  .stat .d{font-size:12px;color:var(--fg-muted);font-weight:500;}
+
+  /* Overview */
+  .overview{padding:64px 0;}
+  .panel{background:var(--mist);border-radius:14px;padding:44px 48px;display:flex;gap:40px;flex-wrap:wrap;}
+  .panel .kicker-col{min-width:180px;}
+  .kicker{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .kicker::after{content:"";display:inline-block;width:36px;height:1px;background:var(--brand-deep);margin-left:10px;vertical-align:middle;}
+  .panel h2{font-size:24px;color:var(--brand-deep);margin-top:6px;}
+  .panel .body-col{flex:1;min-width:300px;border-left:2px solid var(--brand-deep);padding-left:32px;font-size:15px;color:#4a3a2e;}
+  .panel .body-col p+p{margin-top:14px;}
+
+  /* Section headings */
+  .section-title{text-align:center;font-size:32px;color:var(--ink);margin-bottom:12px;}
+  .section-title .accent{color:var(--brand-deep);}
+  .section-sub{text-align:center;max-width:760px;margin:0 auto 48px;font-size:15px;color:var(--muted);}
+
+  /* Key features */
+  .features{padding:24px 0 40px;}
+  .feature{display:flex;gap:48px;align-items:center;margin-bottom:64px;flex-wrap:wrap;}
+  .feature:nth-child(even){flex-direction:row-reverse;}
+  .feature .visual{flex:1;min-width:280px;border-radius:14px;min-height:300px;background:var(--mist);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .feature .visual .swatch{width:78%;height:74%;border-radius:10px;background:linear-gradient(135deg,var(--brand-deep) 0%,var(--bg) 100%);box-shadow:0 18px 40px rgba(34,23,18,.3);display:flex;align-items:center;justify-content:center;color:var(--fg);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;padding:16px;}
+  .feature:nth-child(3) .visual .swatch{background:linear-gradient(135deg,#9c3a4a 0%,var(--bg) 100%);}
+  .feature:nth-child(4) .visual .swatch{background:linear-gradient(135deg,var(--surface) 0%,var(--bg) 100%);border:1px solid var(--border);}
+  .feature:nth-child(5) .visual .swatch{background:linear-gradient(135deg,var(--brand) 0%,#9c3a4a 100%);}
+  .feature:nth-child(6) .visual .swatch{background:linear-gradient(135deg,#7c3a10 0%,var(--bg) 100%);}
+  .feature .text{flex:1;min-width:300px;}
+  .feature .num{font-size:72px;color:var(--mist-dark);font-weight:900;line-height:1;}
+  .feature h3{font-size:22px;margin:8px 0 12px;}
+  .feature p{font-size:15px;color:#4a3a2e;}
+
+  /* Glance */
+  .glance{background:var(--mist);padding:64px 0;}
+  .glance-grid{display:flex;gap:48px;flex-wrap:wrap;align-items:center;}
+  .glance-visual{flex:1;min-width:280px;border-radius:14px;min-height:360px;background:linear-gradient(160deg,#7c3a10,var(--bg-soft) 55%,var(--bg));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .glance-visual .mock{color:var(--fg);text-align:center;padding:24px;}
+  .glance-visual .mock .t{font-size:26px;font-weight:800;line-height:1.25;}
+  .glance-visual .mock .s{font-size:13px;opacity:.85;margin-top:10px;letter-spacing:1px;text-transform:uppercase;}
+  .glance-list{flex:1.2;min-width:320px;}
+  .glance-list h2{font-size:26px;margin-bottom:20px;}
+  .glance-list ul{list-style:none;font-size:14.5px;color:#4a3a2e;}
+  .glance-list li{padding:7px 0 7px 26px;position:relative;}
+  .glance-list li::before{content:"➢";position:absolute;left:0;color:var(--brand-deep);}
+
+  /* Challenges */
+  .challenges{padding:72px 0 40px;}
+  .cs-block{margin-bottom:52px;}
+  .cs-block h3{font-size:21px;margin-bottom:18px;}
+  .cs-cols{display:flex;gap:28px;flex-wrap:wrap;}
+  .cs-col{flex:1;min-width:300px;font-size:14.5px;color:#4a3a2e;}
+  .cs-col .tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--brand-deep);font-weight:700;margin-bottom:10px;}
+  .cs-col .tag::after{content:"";display:inline-block;width:36px;height:1px;background:var(--brand-deep);margin-left:10px;vertical-align:middle;}
+  .cs-col.solution{background:var(--mist);border-radius:12px;padding:24px 26px;}
+  .cs-col strong{color:var(--ink);}
+
+  /* Tech stack */
+  .tech{padding:40px 0 72px;}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tech-card{border:1px solid var(--steel);border-radius:12px;padding:26px 24px;background:var(--white);}
+  .tech-card .icon{width:40px;height:40px;border-radius:9px;background:var(--mist);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px;}
+  .tech-card h4{font-size:16px;margin-bottom:8px;}
+  .tech-card p{font-size:13.5px;color:var(--muted);}
+
+  /* CTA */
+  .cta{padding:0 0 72px;}
+  .cta-panel{background:linear-gradient(120deg,var(--bg),#7c3a10);border-radius:16px;padding:56px;display:flex;gap:40px;align-items:center;flex-wrap:wrap;color:var(--fg-muted);}
+  .cta-panel h2{font-size:30px;flex:1;min-width:280px;color:var(--fg);}
+  .cta-panel .right{flex:1;min-width:280px;font-size:15px;}
+  .cta-panel .right p{margin-bottom:20px;opacity:.9;}
+
+  /* Footer */
+  footer{background:var(--mist);padding:56px 0 0;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;}
+  .foot-grid h5{font-size:14px;margin-bottom:14px;color:var(--ink);}
+  .foot-grid p,.foot-grid a{font-size:13.5px;color:var(--muted);text-decoration:none;display:block;margin-bottom:8px;}
+  .foot-grid a:hover{color:var(--brand-deep);}
+  .foot-bottom{background:var(--bg);color:var(--fg-muted);font-size:13px;padding:14px 0;}
+  .foot-bottom .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+
+  /* --- UX polish: motion, focus, hover feedback --- */
+  html{scroll-behavior:smooth;}
+  a,button{-webkit-tap-highlight-color:transparent;}
+  a:focus-visible,button:focus-visible,.btn:focus-visible{outline:2px solid var(--brand-deep);outline-offset:3px;border-radius:6px;}
+  .skip-link{position:absolute;left:12px;top:-48px;background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;z-index:1000;transition:top .2s ease;}
+  .skip-link:focus{top:12px;}
+  .btn{transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.16);}
+  .btn:active{transform:translateY(0);box-shadow:none;}
+  nav.links a{position:relative;transition:color .18s ease;}
+  nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--brand-deep);transform:scaleX(0);transition:transform .2s ease;transform-origin:left;}
+  nav.links a:hover::after,nav.links a:focus-visible::after{transform:scaleX(1);}
+  .stat,.tech-card,.tile,.feature .visual{transition:transform .22s ease,box-shadow .22s ease;}
+  .stat:hover,.tech-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.10);}
+  .tile:hover,.feature .visual:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,0,0,.22);}
+  .foot-grid a{transition:color .15s ease,transform .15s ease;}
+  .foot-grid a:hover{transform:translateX(3px);}
+
+  /* --- Mobile nav toggle --- */
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;margin:0;width:40px;height:40px;align-items:center;justify-content:center;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:5px auto;transition:transform .25s ease,opacity .2s ease;}
+  header.nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  header.nav.nav-open .nav-toggle span:nth-child(2){opacity:0;}
+  header.nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition-duration:.001ms !important;animation-duration:.001ms !important;}
+  }
+
+  @media (max-width:820px){
+    .hero h1{font-size:30px;}
+    .hero-visual{grid-template-columns:1fr 1fr;}
+    .stats-strip{grid-template-columns:1fr 1fr;}
+    .tech-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .panel{padding:32px 26px;}
+    .panel .body-col{border-left:none;padding-left:0;}
+    header.nav{position:relative;}
+    header.nav .container{position:relative;}
+    .nav-toggle{display:flex;}
+    nav.links{display:none;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--white);border-bottom:1px solid var(--steel);box-shadow:0 16px 30px rgba(0,0,0,.12);padding:8px 0;z-index:50;}
+    nav.links a{padding:13px 32px;width:100%;}
+    nav.links a::after{display:none;}
+    header.nav.nav-open nav.links{display:flex;}
+  }
+  @media print{
+    .topbar,.nav-cta,nav.links{display:none;}
+    .hero{padding:40px 0;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="topbar">
+  <div class="container">
+    <span>📍 Location: C Scheme, Jaipur, Rajasthan, India</span>
+    <span>📞 +91 73000 96277 &nbsp;&nbsp; ✉️ info@akechiwebcraft.com</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="container">
+    <div class="logo">
+      <img src="akechi-logo.png" alt="Akechi Webcraft IT Solutions logo">
+    </div>
+    <nav class="links" id="primary-nav">
+      <a href="#overview">Company</a>
+      <a href="#features">Services</a>
+      <a href="#glance">Portfolio</a>
+      <a href="#challenges">Case Studies</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-cta">
+      <a class="btn btn-outline" href="#contact">Contact Us</a>
+      <a class="btn btn-solid" href="#contact">Schedule a Call</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="main">
+  <div class="container">
+    <div class="badge">E-Commerce Store · Case Study</div>
+    <h1>A <span class="duo-gradient">Personalized Décor &amp; Gifting Store</span> Where Every Wall Can Tell a Story</h1>
+    <p class="lede">Ikonnic turns personal memories into custom-made products — acrylic wall photos, nameplates, magnets, keychains, and more. Akechi Webcraft Pvt. Ltd. designed and built the complete e-commerce experience: a photography-first storefront, a per-product photo customization flow, and a dual-hub fulfilment story that gets every made-to-order piece dispatched within 3 business days, anywhere in India.</p>
+    <a class="site-link" href="https://ikonnic.com" target="_blank" rel="noopener">IKONNIC.COM — MORE THAN DÉCOR. IT'S PERSONAL.</a>
+    <div class="hero-visual">
+      <div class="tile">
+        <div class="big"><span class="n">50K+</span><span class="d">Prints Delivered</span></div>
+        <div class="label">Memories Made Tangible</div>
+      </div>
+      <div class="tile t2">
+        <div class="big"><span class="n">12</span><span class="d">Product Categories</span></div>
+        <div class="label">Fully Customizable</div>
+      </div>
+      <div class="tile t3">
+        <div class="big"><span class="n">4.9★</span><span class="d">Average Rating</span></div>
+        <div class="label">Loved Across India</div>
+      </div>
+    </div>
+    <div class="stats-strip">
+      <div class="stat"><div class="n">10K+</div><div class="d">Happy Customers</div></div>
+      <div class="stat"><div class="n">50K+</div><div class="d">Prints Delivered</div></div>
+      <div class="stat"><div class="n">3 Days</div><div class="d">Dispatch Promise</div></div>
+      <div class="stat"><div class="n">2 Hubs</div><div class="d">Jaipur &amp; Bengaluru</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="overview" id="overview">
+  <div class="container">
+    <div class="panel">
+      <div class="kicker-col">
+        <div class="kicker">Overview</div>
+        <h2>Project Overview</h2>
+      </div>
+      <div class="body-col">
+        <p>Personalized gifting is an emotional purchase sold through a screen. A customer isn't buying an acrylic sheet — they're buying a wedding photo on their living-room wall, a child's name above a bedroom door, a memory on the fridge. Ikonnic's vision was to make that feeling shoppable: a store where anyone can turn a photo on their phone into premium décor in a few taps, and trust that what arrives matches what they imagined.</p>
+        <p>Akechi Webcraft designed and built the full Ikonnic experience: a photography-first storefront across 12 personalized product categories, a guided "Personalise Yours" customization flow on every product, integrated login, cart, and order tracking, and a content layer — blog, FAQ, and a photo-poses guide — that helps customers send better photos and buy with confidence. Behind it all sits a dual-hub fulfilment model, with a Creative Fulfilment Hub in Jaipur and a Print &amp; Dispatch Studio in Bengaluru, routing every order to the nearest hub for a 3-business-day dispatch promise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <h2 class="section-title">Key Features</h2>
+    <p class="section-sub">Our goal was a store that sells feelings, not SKUs — where customization is effortless, trust is visible at every step, and made-to-order still means fast.</p>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">12 Personalized Categories</div>
+      </div>
+      <div class="text">
+        <div class="num">01.</div>
+        <h3>A Catalog Built Around Memories, Not SKUs</h3>
+        <p>Twelve product categories — acrylic wall photos as the hero, plus name plates, monogram nameplates, photo fridge magnets, keychains, aluminium-framed acrylics, photo stands, mini wall galleries, wall clocks, luggage tags, photo albums, and gift bundles. Every category is presented with lifestyle photography that shows the product in a real home, with trending gifts from ₹999 to ₹1,699 and clear sale pricing.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">"Personalise Yours" Flow</div>
+      </div>
+      <div class="text">
+        <div class="num">02.</div>
+        <h3>Customization Anyone Can Finish in Minutes</h3>
+        <p>Every product carries a "Personalise Yours" entry into a dedicated customization flow: upload a photo, choose size and finish, preview, and order. The flow is built for people who have never designed anything — supported by a photo-poses guide that teaches customers how to shoot pictures that print beautifully, so the file that reaches the print hub is one the customer will love on their wall.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Dual-Hub Fulfilment</div>
+      </div>
+      <div class="text">
+        <div class="num">03.</div>
+        <h3>Made-to-Order, Dispatched in 3 Days</h3>
+        <p>Personalized products can't sit in a warehouse — every order is produced fresh. Ikonnic runs a Creative Fulfilment Hub in Jaipur and a Print &amp; Dispatch Studio in Bengaluru, and every order ships from the nearest hub to cut transit time. The result is a promise most print-on-demand stores can't make: dispatch within 3 business days, with pan-India coverage.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Trust &amp; Human Support</div>
+      </div>
+      <div class="text">
+        <div class="num">04.</div>
+        <h3>Trust Signals for a No-Returns Category</h3>
+        <p>A personalized product can't be resold, so buyers hesitate. The store answers that hesitation everywhere: 10K+ happy customers, 50K+ prints delivered, and a 4.9★ average rating up front; quality checks and secure packaging promised on every order; and human support over email, phone, and WhatsApp with hassle-free resolutions — so the customer knows a person, not a policy, is behind their memory.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Content &amp; Conversion</div>
+      </div>
+      <div class="text">
+        <div class="num">05.</div>
+        <h3>A Content Layer That Sells and Supports</h3>
+        <p>Beyond the catalog, the site carries a blog for gifting ideas and SEO reach, a detailed FAQ, order tracking for post-purchase peace of mind, and social presence across Instagram, Facebook, YouTube, X, and LinkedIn. Trending-gift rails and gift bundles turn browsers into buyers during festival and occasion spikes, when gifting demand peaks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="glance" id="glance">
+  <div class="container">
+    <div class="glance-grid">
+      <div class="glance-visual">
+        <div class="mock">
+          <div class="t">Every Wall Can<br><span class="duo-gradient">Tell a Story</span></div>
+          <div class="s">Upload · Personalise · Print · Deliver</div>
+        </div>
+      </div>
+      <div class="glance-list">
+        <h2>Features at a Glance</h2>
+        <ul>
+          <li>12 personalized product categories, acrylic wall photos as hero</li>
+          <li>"Personalise Yours" photo-upload customization on every product</li>
+          <li>Full e-commerce — login, cart, checkout &amp; order tracking</li>
+          <li>Trending gifts rail with sale pricing from ₹999–₹1,699</li>
+          <li>Gift bundles &amp; combos for occasions and festivals</li>
+          <li>Dual-hub fulfilment — Jaipur &amp; Bengaluru studios</li>
+          <li>Nearest-hub order routing to reduce transit time</li>
+          <li>Dispatch within 3 business days, pan-India shipping</li>
+          <li>Photo poses guide to help customers shoot print-ready photos</li>
+          <li>Quality checks &amp; secure packaging on every order</li>
+          <li>Human support — email, phone &amp; WhatsApp resolutions</li>
+          <li>Trust badges — 10K+ customers, 50K+ prints, 4.9★ rating</li>
+          <li>Blog, FAQ &amp; SEO-ready content for organic reach</li>
+          <li>Social integration — Instagram, Facebook, YouTube, X, LinkedIn</li>
+          <li>Photography-first, fully responsive mobile-first design</li>
+        </ul>
+        <p style="margin-top:22px;"><a class="btn btn-dark" href="#contact">Connect with Us ➢</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="challenges" id="challenges">
+  <div class="container">
+    <h2 class="section-title">Project Challenges and Their Solutions</h2>
+    <p class="section-sub">Selling made-to-order emotional products online brings problems a normal store never faces. Here is how we solved them.</p>
+
+    <div class="cs-block">
+      <h3>1. Customers Aren't Designers — But Every Order Is a Design</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>Every Ikonnic order starts with a customer's own photo. Low-resolution uploads, awkward crops, and poorly lit pictures produce disappointing prints — and in a personalized category, a disappointing print is a lost customer who can't even return the product.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We designed a <strong>guided "Personalise Yours" flow with education built in</strong>: a step-by-step upload-preview-order journey on every product, backed by a photo-poses guide that shows customers exactly how to shoot pictures that print beautifully. The customer feels creative, not burdened — and the hub receives files worth printing.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>2. Winning Trust in a Category With No Returns</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>A personalized acrylic photo can't be restocked or resold, so the usual e-commerce safety net — easy returns — doesn't apply. Buyers paying ₹999–₹1,699 for something they can't send back need a different reason to click "order."</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We made <strong>trust the loudest element on the page</strong>: 10K+ happy customers, 50K+ prints delivered, and a 4.9★ rating surfaced up front; explicit promises of quality checks, secure packaging, and hassle-free resolutions; and human support one WhatsApp message away. The store replaces a returns policy with visible proof and reachable people.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>3. Made-to-Order Speed Across a Country the Size of India</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>Print-on-demand usually means slow: nothing exists until the order arrives, and a single production site means long transit to half the country. Gifting is deadline-driven — a birthday gift that arrives late has failed completely.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>The store is built around a <strong>dual-hub fulfilment model</strong> — a Creative Fulfilment Hub in Jaipur and a Print &amp; Dispatch Studio in Bengaluru — with each order routed to the nearest hub. Combined with order tracking for post-purchase confidence, Ikonnic can promise dispatch within 3 business days on fully custom products, pan-India.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>4. Twelve Categories Without a Cluttered Store</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>Twelve customizable categories — each with sizes, finishes, and variants — can easily become a maze. Gifting customers often arrive with an occasion in mind, not a product, and an overwhelming catalog sends them back to the marketplace apps.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We organized the store around a <strong>hero-product hierarchy</strong>: acrylic wall photos lead with the "Every wall can tell a story" hero, trending-gift rails surface proven sellers with prices visible, and gift bundles package decisions for occasion shoppers. Lifestyle photography does the explaining, so every category is understood at a glance instead of read.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="container">
+    <h2 class="section-title">Tech Stack</h2>
+    <p class="section-sub">A modern e-commerce stack chosen for rich imagery, effortless customization, and conversion at scale.</p>
+    <div class="tech-grid">
+      <div class="tech-card"><div class="icon">🛒</div><h4>E-Commerce Platform</h4><p>Full storefront with product catalog, login, cart, checkout, and order management across 12 personalized categories.</p></div>
+      <div class="tech-card"><div class="icon">🎨</div><h4>Product Customizer</h4><p>Per-product "Personalise Yours" flow — photo upload, size and finish selection, and preview before order.</p></div>
+      <div class="tech-card"><div class="icon">🖼️</div><h4>Image Pipeline</h4><p>Optimized delivery of heavy lifestyle and product photography, plus handling of customer-uploaded print files.</p></div>
+      <div class="tech-card"><div class="icon">🏭</div><h4>Dual-Hub Fulfilment</h4><p>Order routing between Jaipur and Bengaluru hubs so every package ships from the nearest studio.</p></div>
+      <div class="tech-card"><div class="icon">📦</div><h4>Order Tracking</h4><p>Post-purchase tracking that keeps deadline-driven gift buyers informed from print to doorstep.</p></div>
+      <div class="tech-card"><div class="icon">💬</div><h4>WhatsApp &amp; Support</h4><p>Human support across email, phone, and WhatsApp, wired into the store for hassle-free resolutions.</p></div>
+      <div class="tech-card"><div class="icon">📝</div><h4>Blog &amp; SEO Content</h4><p>Gifting-idea blog, FAQ, and photo poses guide built for organic search reach and customer education.</p></div>
+      <div class="tech-card"><div class="icon">📣</div><h4>Social Integration</h4><p>Instagram, Facebook, YouTube, X, and LinkedIn presence connected to the store for social-led discovery.</p></div>
+      <div class="tech-card"><div class="icon">📱</div><h4>Mobile-First Design</h4><p>A photography-first, fully responsive design — because gifts are browsed, personalized, and bought on phones.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-panel">
+      <h2>Want to Launch an E-Commerce Brand of Your Own?</h2>
+      <div class="right">
+        <p>If you have a product people will love and need a store that makes them feel it, Akechi Webcraft Pvt. Ltd. can design and build the complete experience — quickly, and the right way.</p>
+        <p><strong>The Experts are Here!</strong></p>
+        <a class="btn btn-solid" href="mailto:info@akechiwebcraft.com">Contact Us ➢</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h5>About Akechi Webcraft</h5>
+        <p>Akechi Webcraft Pvt. Ltd. is a web design and development company crafting premium digital experiences — from e-commerce stores to enterprise SaaS platforms — that help businesses grow online.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#overview">About Us</a>
+        <a href="#glance">Our Work</a>
+        <a href="#challenges">Case Studies</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <a href="#features">E-Commerce Development</a>
+        <a href="#features">Product Customization Flows</a>
+        <a href="#features">Brand &amp; Content Design</a>
+        <a href="#features">Web Design &amp; Branding</a>
+      </div>
+      <div>
+        <h5>This Project</h5>
+        <a href="https://ikonnic.com" target="_blank" rel="noopener">Ikonnic — Personalized Décor &amp; Gifts</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="container">
+      <span>C Scheme, Jaipur, Rajasthan, India &nbsp;·&nbsp; +91 73000 96277 &nbsp;·&nbsp; info@akechiwebcraft.com</span>
+      <span>© Akechi Webcraft Pvt. Ltd.</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var header = document.querySelector('header.nav');
+  var toggle = document.querySelector('.nav-toggle');
+  if(!header || !toggle) return;
+  function closeMenu(){
+    header.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('nav.links a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+  document.addEventListener('click', function(e){
+    if(header.classList.contains('nav-open') && !header.contains(e.target)) closeMenu();
+  });
+})();
+</script>
+</body>
+</html>

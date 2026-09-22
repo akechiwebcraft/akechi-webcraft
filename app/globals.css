@@ -1,0 +1,559 @@
+@import "tailwindcss";
+
+@theme {
+  /* ═══ Colour ═══════════════════════════════════════════
+     The single source of truth. A parallel "premium" palette
+     (--color-ink/-surface/-highlight) sat here unused, while components
+     hardcoded hex literals instead — #0078D4 appeared 117 times. That is how
+     the WCAG failures got in and why fixing them touched a dozen files. */
+
+  /* Brand */
+  --color-primary: #0078D4;
+  --color-primary-dark: #005A9E;
+  /* Deep teal, not the #3DD9E5 cyan: used for text and behind white text,
+     where the light cyan failed AA at 1.7:1. The cyan survives below as a
+     decorative-only value for gradients and glows. */
+  --color-primary-accent: #0B6670;
+
+  /* Text */
+  --color-ink: #0F172A;        /* headings */
+  --color-prose: #334155;      /* body copy — named prose, not body: a
+                                  .text-body component class existed and would
+                                  have collided with the colour utility
+                                  (it also set font-size). Now removed. */
+  --color-muted: #475569;      /* secondary copy — AA on every site surface */
+  --color-subtle: #64748B;     /* tertiary copy */
+  --color-faint: #94A3B8;      /* decorative only — fails AA as text */
+
+  /* Surfaces */
+  --color-canvas: #FFFFFF;
+  --color-tint: #F8FBFD;       /* section tint */
+  --color-tint-soft: #F5FBFD;  /* second-level tint */
+  --color-accent-soft: #EAF7FB;
+  --color-mint: #E2F9F1;
+
+  /* Lines */
+  --color-line: #D7E5EC;
+  --color-line-strong: #BFD4DE;
+
+  /* Status — the success value is #047857, not the #10B981 used previously:
+     that failed AA as text at 2.5:1 wherever it labelled an outcome. */
+  --color-success: #047857;
+  --color-success-soft: #D1FAE5;
+  --color-success-line: #A7F3D0;
+  --color-danger: #B91C1C;
+  --color-danger-soft: #FEF2F2;
+  --color-danger-line: #FECACA;
+
+  /* Decorative — never as text or behind text */
+  --color-cyan-decor: #3DD9E5;
+
+  /* ═══ Elevation ════════════════════════════════════════
+     Four neutral steps and two brand glows, replacing fifteen one-off shadow
+     values that had no rule governing which applied where — cards on the
+     homepage, portfolio, and pricing all sat at different heights for no
+     semantic reason. Neutral = height above the page; glow = brand emphasis
+     on hover. */
+  --shadow-hairline: 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.05);
+  --shadow-lifted: 0 8px 28px rgba(15, 23, 42, 0.08);
+  --shadow-float: 0 20px 60px rgba(15, 23, 42, 0.11);
+  --shadow-glow-soft: 0 4px 18px rgba(0, 120, 212, 0.07);
+  --shadow-glow: 0 8px 24px rgba(0, 120, 212, 0.22);
+
+  /* ═══ Typography ═══════════════════════════════════════
+     Replaces twenty ad-hoc arbitrary sizes that mixed units for identical
+     values (text-[16px] and text-[1rem] both appeared) and included 10px and
+     10.88px outliers.
+
+     Only the two steps Tailwind has no equivalent for are defined here;
+     everything else rides its ladder (12/14/16/18/20/24/30/36). Custom names
+     for sizes Tailwind already has just created two spellings per value.
+
+     Naming note: not text-body or text-caption. Those were component classes
+     that also set colour and line-height, so a same-named size utility would
+     have silently changed type. Both are now deleted — they had no users. */
+  --text-micro: 0.6875rem;   /* 11px — badges, metric labels */
+  --text-note: 0.8125rem;    /* 13px — captions, helper text */
+
+  /* Fluid steps. Each replaces a pair of arbitrary sizes plus the breakpoint
+     variant that existed only to switch between them. */
+  --text-stat: clamp(1.5rem, 2.5vw, 1.75rem);      /* hero stat figures */
+  --text-stat-lg: clamp(2.25rem, 4vw, 3rem);       /* impact counters */
+  --text-page-title: clamp(1.75rem, 4vw, 3rem);    /* h1 on inner pages */
+
+  --font-display: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-primary: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Aliases onto the @theme tokens above. Kept because component classes in
+     this file and a handful of inline styles still reference these names —
+     they no longer carry their own hex values, so there is one place to
+     change a colour. Twenty-two unread variables were removed. */
+  --azure-blue: var(--color-primary);
+  --azure-blue-dark: var(--color-primary-dark);
+  --deep-navy: var(--color-ink);
+  --body-text: var(--color-prose);
+  --muted-text: var(--color-subtle);
+  --page-bg: var(--color-tint);
+  --icy-blue: var(--color-accent-soft);
+  --card-bg: var(--color-canvas);
+  --border-soft: var(--color-line);
+
+  /* Consumed from inline styles in the portfolio and services templates */
+  --site-bg: var(--color-canvas);
+  --site-bg-soft: var(--color-tint);
+  --site-panel: var(--color-canvas);
+  --site-text: var(--color-ink);
+  --site-muted: var(--color-subtle);
+  --site-border: var(--color-line);
+}
+
+/* ─── Base Reset ─── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #ffffff;
+  color: #334155;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  font-feature-settings: "ss01", "ss02", "cv01";
+}
+
+html, body, main {
+  background-color: #FFFFFF;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--deep-navy);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+a, button {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ─── Focus Visibility (WCAG 2.4.7) ───
+   A single global indicator. Navy reads against both the white page and the
+   #0078D4 buttons, and the offset keeps it clear of rounded corners. */
+:focus-visible {
+  outline: 2px solid #0F172A;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Skip link — visually hidden until focused */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 100;
+  transform: translateY(-200%);
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #0078D4;
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease-in-out;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Anchor targets must clear the 72px fixed header and the sticky section tabs */
+:target {
+  scroll-margin-top: 100px;
+}
+
+::selection {
+  background: rgba(0, 120, 212, 0.15);
+  color: var(--deep-navy);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ══════════════════════════════════════════════════════
+   COMPONENT CLASSES
+   Multi-property styles (size + weight + colour + tracking). Anything that
+   sets a single property belongs in @theme as a token instead.
+   ══════════════════════════════════════════════════════ */
+
+/* ─── Layout Utilities ─────────────────────────────────
+   One content width for the whole site. There were four live widths — 1320
+   (homepage), 1280 (PageShell pages), 1072 (case studies), plus 1120/1440
+   defined but unused — so the content column shifted as you navigated.
+   `--content-max` matches Tailwind's max-w-7xl, which PageHero/PageShell
+   already used on eleven pages. */
+:root {
+  --content-max: 1280px;
+  --content-gutter: 48px;
+}
+
+.container-tight,
+.container-wide,
+.container-full {
+  width: min(100% - var(--content-gutter), var(--content-max));
+  margin-inline: auto;
+}
+
+/* ─── Section Spacing ─── */
+.section-spacing {
+  padding-block: clamp(48px, 7vw, 88px);
+}
+
+.section-spacing-sm {
+  padding-block: clamp(32px, 4vw, 56px);
+}
+
+/* ─── Typography Scale ─── */
+.text-display {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--deep-navy);
+}
+
+.text-headline {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--deep-navy);
+}
+
+.text-title {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--deep-navy);
+}
+
+.text-body-lg {
+  font-size: clamp(1.0625rem, 1.25vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--muted-text);
+}
+
+.text-overline {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--azure-blue-dark);
+}
+
+/* ─── Premium Label ─── */
+.label-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: var(--icy-blue);
+  border: 1px solid var(--border-soft);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--azure-blue-dark);
+  letter-spacing: 0;
+}
+
+/* ─── Card System ─── */
+.card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  border-color: rgba(0, 120, 212, 0.35);
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.1);
+  transform: translateY(-2px);
+}
+
+.card-flat {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-flat:hover {
+  border-color: rgba(0, 120, 212, 0.25);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+/* ─── Grid Lines (subtle background pattern) ─── */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(0, 120, 212, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 120, 212, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* ─── Hide Scrollbar Utility ─── */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ══════════════════════════════════════════════════════
+   LEGACY DESIGN SYSTEM (existing pages: about, blog, etc.)
+   ══════════════════════════════════════════════════════ */
+
+.container {
+  width: min(100% - var(--content-gutter), var(--content-max));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: 56px;
+}
+
+.site-shell {
+  width: min(100% - var(--content-gutter), var(--content-max));
+  margin-inline: auto;
+}
+
+.site-hero {
+  background: var(--page-bg);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.site-section,
+.site-section-soft {
+  border-bottom: 1px solid var(--border-soft);
+  padding-block: 56px;
+}
+
+.site-section {
+  background: #FFFFFF;
+}
+
+.site-section-soft {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(0, 120, 212, 0.06), transparent 26rem),
+    linear-gradient(180deg, #F8FBFD 0%, #F5FBFD 100%);
+}
+
+.site-card,
+.site-card-flat {
+  border: 1px solid var(--border-soft);
+  background: var(--card-bg);
+  color: var(--deep-navy);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+}
+
+.site-muted {
+  color: var(--muted-text);
+}
+
+.site-tag {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  border: 1px solid rgba(0, 120, 212, 0.2);
+  border-radius: 999px;
+  background: var(--icy-blue);
+  color: var(--azure-blue-dark);
+  padding: 0.42rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.site-title {
+  color: var(--deep-navy);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.site-heading {
+  color: var(--deep-navy);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.site-copy {
+  max-width: 680px;
+  color: var(--muted-text);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* ─── Scroll Styling ─── */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8FBFD;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BFD4DE;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* ─── Legal / Long-form Copy ───
+   The global reset zeroes all heading and paragraph margins, and the
+   @tailwindcss/typography plugin is not installed, so `prose` is a no-op.
+   This restores readable rhythm on the Privacy and Terms pages. */
+.legal-copy > * + * {
+  margin-top: 1rem;
+}
+
+.legal-copy h2 {
+  margin-top: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--deep-navy);
+}
+
+.legal-copy h2:first-child {
+  margin-top: 0;
+}
+
+.legal-copy h3 {
+  margin-top: 2rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--deep-navy);
+}
+
+.legal-copy p,
+.legal-copy li {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--body-text);
+}
+
+.legal-copy ul {
+  margin-block: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.legal-copy li + li {
+  margin-top: 0.5rem;
+}
+
+.legal-copy a {
+  color: var(--azure-blue-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ─── Divider ─── */
+.divider {
+  height: 1px;
+  background: var(--border-soft);
+  border: none;
+}
+
+/* ─── Responsive Adjustments ─── */
+@media (max-width: 1024px) {
+  .section {
+    padding-block: 64px;
+  }
+  .site-title {
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  }
+  .site-heading {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .container-tight,
+  .container-wide,
+  .container-full {
+    width: min(100% - 32px, 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .container,
+  .site-shell,
+  .container-tight,
+  .container-wide,
+  .container-full {
+    width: min(100% - 24px, 100%);
+  }
+  .section {
+    padding-block: 52px;
+  }
+  .site-title {
+    font-size: 2.25rem;
+  }
+  .site-heading {
+    font-size: 1.75rem;
+  }
+  .site-section,
+  .site-section-soft {
+    padding-block: 56px;
+  }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

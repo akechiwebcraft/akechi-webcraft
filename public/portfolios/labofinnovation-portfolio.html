@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab of Innovation — Robotics Platform Case Study | Akechi Webcraft Pvt. Ltd.</title>
+<meta name="description" content="How Akechi Webcraft Pvt. Ltd. designed and built the Lab of Innovation platform — an enterprise robotics education, training, and e-commerce website serving students, institutions, and corporates.">
+<link rel="icon" href="akechi-logo.png">
+<meta name="theme-color" content="#1b1210">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lab of Innovation — Robotics Platform Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta property="og:description" content="How Akechi Webcraft Pvt. Ltd. designed and built the Lab of Innovation platform — an enterprise robotics education, training, and e-commerce website serving students, institutions, and corporates.">
+<meta property="og:image" content="akechi-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lab of Innovation — Robotics Platform Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta name="twitter:description" content="How Akechi Webcraft Pvt. Ltd. designed and built the Lab of Innovation platform — an enterprise robotics education, training, and e-commerce website serving students, institutions, and corporates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Lab of Innovation brand palette (sky + fuchsia + orange on slate) */
+    --dark:#0f172a;        /* dark-900 */
+    --dark-2:#1e293b;      /* dark-800 */
+    --ink:#0f172a;
+    --sky:#0ea5e9;         /* primary-500 */
+    --sky-deep:#0284c7;    /* primary-600 */
+    --sky-darker:#0369a1;  /* primary-700 */
+    --sky-navy:#0c4a6e;    /* primary-900 */
+    --sky-bright:#38bdf8;  /* primary-400 */
+    --fuchsia:#d946ef;     /* secondary-500 */
+    --fuchsia-deep:#c026d3;/* secondary-600 */
+    --fuchsia-bright:#e879f9; /* secondary-400 */
+    --orange:#f97316;      /* accent-500 */
+    --orange-deep:#ea580c; /* accent-600 */
+    --orange-bright:#fb923c; /* accent-400 */
+    --mist:#f0f9ff;        /* primary-50 */
+    --mist-dark:#e0f2fe;
+    --steel:#e2e8f0;
+    --white:#ffffff;
+    --muted:#64748b;
+    --slate-soft:#cbd5e1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter','Segoe UI',Helvetica,Arial,sans-serif;background:var(--white);color:var(--ink);line-height:1.6;}
+  .container{max-width:1080px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3,h4,h5{font-family:'Poppins','Inter',sans-serif;font-weight:700;letter-spacing:-.01em;}
+  .tri-gradient{background:linear-gradient(90deg,var(--sky-bright),var(--fuchsia-bright),var(--orange-bright));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  /* Top bar */
+  .topbar{background:var(--dark);color:var(--slate-soft);font-size:13px;padding:8px 0;}
+  .topbar .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .topbar span{opacity:.9;}
+
+  /* Nav */
+  header.nav{background:var(--white);border-bottom:1px solid var(--steel);padding:16px 0;}
+  header.nav .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .logo{display:flex;align-items:center;}
+  .logo img{height:48px;width:auto;display:block;}
+  nav.links{display:flex;gap:22px;font-size:14px;}
+  nav.links a{color:var(--ink);text-decoration:none;font-weight:500;}
+  nav.links a:hover{color:var(--sky-deep);}
+  .nav-cta{display:flex;gap:10px;}
+  .btn{display:inline-block;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;}
+  .btn-outline{border:1.5px solid var(--dark);color:var(--dark);background:transparent;}
+  .btn-solid{background:linear-gradient(90deg,var(--sky),var(--fuchsia-deep));color:var(--white);}
+  .btn-dark{background:var(--dark);color:var(--white);}
+
+  /* Hero */
+  .hero{background:var(--dark);padding:72px 0 64px;text-align:center;}
+  .hero .badge{display:inline-block;background:rgba(255,255,255,.06);border:1px solid var(--dark-2);color:var(--sky-bright);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:22px;}
+  .hero h1{font-size:42px;line-height:1.2;max-width:880px;margin:0 auto 20px;font-weight:800;color:var(--white);}
+  .hero p.lede{max-width:720px;margin:0 auto;font-size:17px;color:var(--slate-soft);}
+  .hero .site-link{display:inline-block;margin-top:26px;font-size:14px;letter-spacing:1px;font-weight:700;color:var(--sky-bright);text-decoration:none;border-bottom:2px solid var(--sky-bright);}
+  .hero-visual{margin:48px auto 0;max-width:860px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;}
+  .tile{border-radius:14px;min-height:220px;background:linear-gradient(135deg,var(--sky-navy) 0%,var(--dark-2) 100%);border:1px solid var(--dark-2);position:relative;overflow:hidden;display:flex;align-items:flex-end;}
+  .tile.t2{background:linear-gradient(135deg,var(--fuchsia) 0%,var(--sky-darker) 100%);border:none;}
+  .tile.t3{background:linear-gradient(135deg,var(--orange) 0%,var(--fuchsia-deep) 100%);border:none;}
+  .tile .label{width:100%;padding:14px;color:var(--white);font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:linear-gradient(transparent,rgba(2,6,23,.7));text-align:left;position:relative;z-index:1;}
+  .tile .big{position:absolute;top:38%;left:0;right:0;transform:translateY(-50%);text-align:center;color:var(--white);}
+  .tile .big .n{font-size:38px;font-weight:900;display:block;line-height:1.1;font-family:'Poppins',sans-serif;}
+  .tile .big .d{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;}
+
+  /* Stats strip */
+  .stats-strip{max-width:860px;margin:22px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .stat{background:var(--dark-2);border:1px solid #334155;border-radius:12px;padding:18px 12px;}
+  .stat .n{font-size:24px;font-weight:900;font-family:'Poppins',sans-serif;}
+  .stat:nth-child(1) .n{color:var(--sky-bright);}
+  .stat:nth-child(2) .n{color:var(--fuchsia-bright);}
+  .stat:nth-child(3) .n{color:var(--orange-bright);}
+  .stat:nth-child(4) .n{color:#4ade80;}
+  .stat .d{font-size:12px;color:var(--slate-soft);font-weight:500;}
+
+  /* Overview */
+  .overview{padding:64px 0;}
+  .panel{background:var(--mist);border-radius:14px;padding:44px 48px;display:flex;gap:40px;flex-wrap:wrap;}
+  .panel .kicker-col{min-width:180px;}
+  .kicker{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .kicker::after{content:"";display:inline-block;width:36px;height:1px;background:var(--sky-deep);margin-left:10px;vertical-align:middle;}
+  .panel h2{font-size:24px;color:var(--sky-deep);margin-top:6px;}
+  .panel .body-col{flex:1;min-width:300px;border-left:2px solid var(--sky-deep);padding-left:32px;font-size:15px;color:#334155;}
+  .panel .body-col p+p{margin-top:14px;}
+
+  /* Section headings */
+  .section-title{text-align:center;font-size:32px;color:var(--dark);margin-bottom:12px;}
+  .section-title .accent{color:var(--sky-deep);}
+  .section-sub{text-align:center;max-width:760px;margin:0 auto 48px;font-size:15px;color:var(--muted);}
+
+  /* Key features */
+  .features{padding:24px 0 40px;}
+  .feature{display:flex;gap:48px;align-items:center;margin-bottom:64px;flex-wrap:wrap;}
+  .feature:nth-child(even){flex-direction:row-reverse;}
+  .feature .visual{flex:1;min-width:280px;border-radius:14px;min-height:300px;background:var(--mist);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .feature .visual .swatch{width:78%;height:74%;border-radius:10px;background:linear-gradient(135deg,var(--sky-deep) 0%,var(--dark) 100%);box-shadow:0 18px 40px rgba(15,23,42,.3);display:flex;align-items:center;justify-content:center;color:var(--white);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;padding:16px;}
+  .feature:nth-child(3) .visual .swatch{background:linear-gradient(135deg,var(--fuchsia-deep) 0%,var(--sky-navy) 100%);}
+  .feature:nth-child(4) .visual .swatch{background:linear-gradient(135deg,var(--orange-deep) 0%,var(--fuchsia-deep) 100%);}
+  .feature:nth-child(5) .visual .swatch{background:linear-gradient(135deg,var(--sky) 0%,var(--sky-navy) 100%);}
+  .feature:nth-child(6) .visual .swatch{background:linear-gradient(135deg,var(--dark-2) 0%,var(--dark) 100%);}
+  .feature .text{flex:1;min-width:300px;}
+  .feature .num{font-size:72px;color:var(--mist-dark);font-weight:900;line-height:1;font-family:'Poppins',sans-serif;}
+  .feature h3{font-size:22px;margin:8px 0 12px;}
+  .feature p{font-size:15px;color:#334155;}
+
+  /* Glance */
+  .glance{background:var(--mist);padding:64px 0;}
+  .glance-grid{display:flex;gap:48px;flex-wrap:wrap;align-items:center;}
+  .glance-visual{flex:1;min-width:280px;border-radius:14px;min-height:360px;background:linear-gradient(160deg,var(--sky-navy),var(--dark-2) 55%,var(--dark));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .glance-visual .mock{color:var(--white);text-align:center;padding:24px;}
+  .glance-visual .mock .t{font-size:26px;font-weight:800;line-height:1.25;font-family:'Poppins',sans-serif;}
+  .glance-visual .mock .s{font-size:13px;opacity:.85;margin-top:10px;letter-spacing:1px;text-transform:uppercase;}
+  .glance-list{flex:1.2;min-width:320px;}
+  .glance-list h2{font-size:26px;margin-bottom:20px;}
+  .glance-list ul{list-style:none;font-size:14.5px;color:#334155;}
+  .glance-list li{padding:7px 0 7px 26px;position:relative;}
+  .glance-list li::before{content:"➢";position:absolute;left:0;color:var(--sky-deep);}
+
+  /* Challenges */
+  .challenges{padding:72px 0 40px;}
+  .cs-block{margin-bottom:52px;}
+  .cs-block h3{font-size:21px;margin-bottom:18px;}
+  .cs-cols{display:flex;gap:28px;flex-wrap:wrap;}
+  .cs-col{flex:1;min-width:300px;font-size:14.5px;color:#334155;}
+  .cs-col .tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--sky-deep);font-weight:700;margin-bottom:10px;}
+  .cs-col .tag::after{content:"";display:inline-block;width:36px;height:1px;background:var(--sky-deep);margin-left:10px;vertical-align:middle;}
+  .cs-col.solution{background:var(--mist);border-radius:12px;padding:24px 26px;}
+  .cs-col strong{color:var(--ink);}
+
+  /* Tech stack */
+  .tech{padding:40px 0 72px;}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tech-card{border:1px solid var(--steel);border-radius:12px;padding:26px 24px;background:var(--white);}
+  .tech-card .icon{width:40px;height:40px;border-radius:9px;background:var(--mist);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px;}
+  .tech-card h4{font-size:16px;margin-bottom:8px;}
+  .tech-card p{font-size:13.5px;color:var(--muted);}
+
+  /* CTA */
+  .cta{padding:0 0 72px;}
+  .cta-panel{background:linear-gradient(120deg,var(--dark),var(--sky-navy));border-radius:16px;padding:56px;display:flex;gap:40px;align-items:center;flex-wrap:wrap;color:var(--slate-soft);}
+  .cta-panel h2{font-size:30px;flex:1;min-width:280px;color:var(--white);}
+  .cta-panel .right{flex:1;min-width:280px;font-size:15px;}
+  .cta-panel .right p{margin-bottom:20px;opacity:.9;}
+
+  /* Footer */
+  footer{background:var(--mist);padding:56px 0 0;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;}
+  .foot-grid h5{font-size:14px;margin-bottom:14px;color:var(--ink);}
+  .foot-grid p,.foot-grid a{font-size:13.5px;color:var(--muted);text-decoration:none;display:block;margin-bottom:8px;}
+  .foot-grid a:hover{color:var(--sky-deep);}
+  .foot-bottom{background:var(--dark);color:var(--slate-soft);font-size:13px;padding:14px 0;}
+  .foot-bottom .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+
+  /* --- UX polish: motion, focus, hover feedback --- */
+  html{scroll-behavior:smooth;}
+  a,button{-webkit-tap-highlight-color:transparent;}
+  a:focus-visible,button:focus-visible,.btn:focus-visible{outline:2px solid var(--sky-deep);outline-offset:3px;border-radius:6px;}
+  .skip-link{position:absolute;left:12px;top:-48px;background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;z-index:1000;transition:top .2s ease;}
+  .skip-link:focus{top:12px;}
+  .btn{transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.16);}
+  .btn:active{transform:translateY(0);box-shadow:none;}
+  nav.links a{position:relative;transition:color .18s ease;}
+  nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--sky-deep);transform:scaleX(0);transition:transform .2s ease;transform-origin:left;}
+  nav.links a:hover::after,nav.links a:focus-visible::after{transform:scaleX(1);}
+  .stat,.tech-card,.tile,.feature .visual{transition:transform .22s ease,box-shadow .22s ease;}
+  .stat:hover,.tech-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.10);}
+  .tile:hover,.feature .visual:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,0,0,.22);}
+  .foot-grid a{transition:color .15s ease,transform .15s ease;}
+  .foot-grid a:hover{transform:translateX(3px);}
+
+  /* --- Mobile nav toggle --- */
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;margin:0;width:40px;height:40px;align-items:center;justify-content:center;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:5px auto;transition:transform .25s ease,opacity .2s ease;}
+  header.nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  header.nav.nav-open .nav-toggle span:nth-child(2){opacity:0;}
+  header.nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition-duration:.001ms !important;animation-duration:.001ms !important;}
+  }
+
+  @media (max-width:820px){
+    .hero h1{font-size:30px;}
+    .hero-visual{grid-template-columns:1fr 1fr;}
+    .stats-strip{grid-template-columns:1fr 1fr;}
+    .tech-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .panel{padding:32px 26px;}
+    .panel .body-col{border-left:none;padding-left:0;}
+    header.nav{position:relative;}
+    header.nav .container{position:relative;}
+    .nav-toggle{display:flex;}
+    nav.links{display:none;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--white);border-bottom:1px solid var(--steel);box-shadow:0 16px 30px rgba(0,0,0,.12);padding:8px 0;z-index:50;}
+    nav.links a{padding:13px 32px;width:100%;}
+    nav.links a::after{display:none;}
+    header.nav.nav-open nav.links{display:flex;}
+  }
+  @media print{
+    .topbar,.nav-cta,nav.links{display:none;}
+    .hero{padding:40px 0;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="topbar">
+  <div class="container">
+    <span>📍 Location: C Scheme, Jaipur, Rajasthan, India</span>
+    <span>📞 +91 73000 96277 &nbsp;&nbsp; ✉️ info@akechiwebcraft.com</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="container">
+    <div class="logo">
+      <img src="akechi-logo.png" alt="Akechi Webcraft IT Solutions logo">
+    </div>
+    <nav class="links" id="primary-nav">
+      <a href="#overview">Company</a>
+      <a href="#features">Services</a>
+      <a href="#glance">Portfolio</a>
+      <a href="#challenges">Case Studies</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-cta">
+      <a class="btn btn-outline" href="#contact">Contact Us</a>
+      <a class="btn btn-solid" href="#contact">Schedule a Call</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="main">
+  <div class="container">
+    <div class="badge">EdTech Platform · Case Study</div>
+    <h1>An <span class="tri-gradient">Enterprise Robotics Platform</span> for Education, Training &amp; Innovation</h1>
+    <p class="lede">Lab of Innovation empowers the next generation with cutting-edge robotics education, professional corporate training, and innovative product solutions. Akechi Webcraft Pvt. Ltd. designed and built its complete digital platform — a multi-audience website spanning STEM programs for ages 6–18, Industry 4.0 corporate training, a robotics products store, an innovation lab, and consultation booking, all in one seamless experience.</p>
+    <a class="site-link" href="https://labofinnovation.vercel.app/" target="_blank">VISIT THE LIVE PLATFORM — LABOFINNOVATION.COM</a>
+    <div class="hero-visual">
+      <div class="tile">
+        <div class="big"><span class="n">Robotics</span><span class="d">Education · Training · Products</span></div>
+        <div class="label">Transforming Education Through Innovation</div>
+      </div>
+      <div class="tile t2">
+        <div class="big"><span class="n">6–18</span><span class="d">STEM Curriculum by Age</span></div>
+        <div class="label">Inspiring Young Minds</div>
+      </div>
+      <div class="tile t3">
+        <div class="big"><span class="n">₹10 Cr+</span><span class="d">Lab Equipment Access</span></div>
+        <div class="label">Innovation Lab &amp; Incubation</div>
+      </div>
+    </div>
+    <div class="stats-strip">
+      <div class="stat"><div class="n">1,000+</div><div class="d">Students Trained</div></div>
+      <div class="stat"><div class="n">2,000+</div><div class="d">Kits Sold</div></div>
+      <div class="stat"><div class="n">20+</div><div class="d">Partner Organizations</div></div>
+      <div class="stat"><div class="n">95%</div><div class="d">Success Rate</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="overview" id="overview">
+  <div class="container">
+    <div class="panel">
+      <div class="kicker-col">
+        <div class="kicker">Overview</div>
+        <h2>Project Overview</h2>
+      </div>
+      <div class="body-col">
+        <p>Lab of Innovation is not one business — it is four. It teaches robotics to children from age six, partners with schools and colleges on industry-aligned degree programs, upskills corporate teams in Industry 4.0 technologies, and incubates robotics startups in a world-class lab. Each audience arrives with completely different questions, vocabulary, and buying journeys — and the platform had to serve them all without confusing anyone.</p>
+        <p>Akechi Webcraft designed and built the entire platform as a fast, animation-rich web application: dedicated journeys for students, institutions, corporates, and innovators; a built-in e-commerce store for robotics kits and components with cart and secure checkout; a consultation booking system with video, phone, and in-person options; success stories, certifications, galleries, and a 24/7 support hub. The result is a single digital home that presents a young company (est. 2025) with the polish and depth of an established enterprise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <h2 class="section-title">Key Features</h2>
+    <p class="section-sub">Our goal was one platform where four very different audiences — parents, educators, corporate leaders, and innovators — each find a tailored journey from first visit to enrollment, purchase, or partnership.</p>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Multi-Audience Architecture</div>
+      </div>
+      <div class="text">
+        <div class="num">01.</div>
+        <h3>Four Businesses, One Seamless Platform</h3>
+        <p>The site opens with a bold gradient promise — "Transforming Education Through Innovation &amp; Technology" — backed by animated live counters: 1,000+ students trained, 2,000+ kits sold, 20+ partner organizations, and a 95% success rate. From there, clear pathways route each visitor to their world: robotics education, corporate training, the products store, or the innovation lab.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Education Programs</div>
+      </div>
+      <div class="text">
+        <div class="num">02.</div>
+        <h3>Age-Tiered Robotics Education (6–18 &amp; Beyond)</h3>
+        <p>An age-appropriate curriculum ladder takes learners from play-based mechanisms, to block-based programming and sensor integration, to text-based coding, AI, and engineering principles. Dedicated school and college partnership programs present industry-aligned curricula, guaranteed internships, placement support, and faculty with credentials from IIT Delhi, IIT Bombay, Stanford, and NIT Trichy.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Corporate &amp; Innovation Lab</div>
+      </div>
+      <div class="text">
+        <div class="num">03.</div>
+        <h3>Corporate Training &amp; Startup Incubation</h3>
+        <p>For organizations, the platform showcases customized Industry 4.0 programs — robotic process automation, AI/ML implementation, IoT and smart systems — with real case studies: a 30% productivity increase, computer-vision inspection replacing a 15% defect rate, and RPA bots processing 10,000+ monthly invoices. The Innovation Lab section offers startups and researchers access to equipment worth ₹10 Crores+, mentorship, and funding support.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">E-Commerce Store</div>
+      </div>
+      <div class="text">
+        <div class="num">04.</div>
+        <h3>Built-In Robotics Products Store</h3>
+        <p>A complete e-commerce experience lives inside the platform: robotics kits from Arduino starter sets to Raspberry Pi 4 AI platforms, components, and professional-grade servo motors — with product cards, cart management, order notes, and a secure encrypted checkout flow. Learners can go from lesson to lab bench without ever leaving the site.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Booking &amp; Support</div>
+      </div>
+      <div class="text">
+        <div class="num">05.</div>
+        <h3>Consultation Booking &amp; 24/7 Support Hub</h3>
+        <p>A free-consultation scheduler lets visitors pick their channel — video call, phone, or an in-person lab visit in Ajmer — with date and time-slot selection and 24-hour response commitments. Around it sits a full support ecosystem: live chat, community forum, unlimited doubt-clearing sessions, FAQs, and globally recognized certifications with LinkedIn badges and unique IDs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="glance" id="glance">
+  <div class="container">
+    <div class="glance-grid">
+      <div class="glance-visual">
+        <div class="mock">
+          <div class="t">Transforming Education<br>Through <span class="tri-gradient">Innovation<br>&amp; Technology</span></div>
+          <div class="s">Education · Training · Products · Incubation</div>
+        </div>
+      </div>
+      <div class="glance-list">
+        <h2>Features at a Glance</h2>
+        <ul>
+          <li>Animated hero with gradient typography and live stat counters</li>
+          <li>Four dedicated audience journeys — students, schools/colleges, corporates, startups</li>
+          <li>Age-tiered curriculum presentation (ages 6–18 through professional)</li>
+          <li>School &amp; college partnership programs with placement support</li>
+          <li>Corporate training pages with ROI-driven case studies</li>
+          <li>Innovation lab &amp; incubation program showcase</li>
+          <li>Full e-commerce store — kits, components, cart &amp; secure checkout</li>
+          <li>Free consultation booking with video, phone &amp; in-person options</li>
+          <li>Certification showcase with LinkedIn badges &amp; unique IDs</li>
+          <li>Success stories — crop-monitoring drones, smart city traffic systems</li>
+          <li>Team profiles, testimonials &amp; photo gallery with lightbox</li>
+          <li>24/7 support hub — live chat, forum, FAQ, doubt-clearing</li>
+          <li>Smooth scroll animations and micro-interactions throughout</li>
+          <li>Code-split, CDN-delivered bundles for fast load times</li>
+          <li>Fully responsive, mobile-first design</li>
+        </ul>
+        <p style="margin-top:22px;"><a class="btn btn-dark" href="#contact">Connect with Us ➢</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="challenges" id="challenges">
+  <div class="container">
+    <h2 class="section-title">Project Challenges and Their Solutions</h2>
+    <p class="section-sub">Building one platform for four audiences — from six-year-olds' parents to corporate decision-makers — brought real design friction. Here is how we solved it.</p>
+
+    <div class="cs-block">
+      <h3>1. One Platform, Four Very Different Audiences</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>A parent researching classes for their eight-year-old, a college dean evaluating a partnership, a corporate L&amp;D head budgeting a training program, and a startup founder seeking incubation all land on the same homepage — with entirely different expectations, vocabulary, and decision criteria.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We designed an <strong>audience-first information architecture</strong>: a universal hero that establishes credibility for everyone, followed by clearly signposted pathways into dedicated sections — each written in its audience's language, with its own CTAs, proof points, and forms. Shared elements like stats, team credentials, and certifications reinforce trust across every journey.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>2. Selling Hands-On Learning Through a Screen</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>Lab of Innovation's core value is physical: children building real robots, corporate teams touching industrial automation rigs, startups using ₹10 Crores+ of lab equipment. A static website risked flattening that tangible, hands-on energy into brochure copy.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We made the site itself feel alive: <strong>motion-rich storytelling</strong> with animated counters, scroll-triggered reveals, and gradient energy throughout, paired with concrete proof — workshop photo galleries with lightbox viewing, student success stories like the AI crop-monitoring drone serving 500+ farms and the award-winning smart-city traffic system deployed in 3 cities.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>3. Full E-Commerce Inside a Marketing Platform</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>The robotics kit store needed real shopping functionality — product catalog, cart, checkout, order confirmation — without the cost and complexity of a separate e-commerce system, and without breaking the visual continuity of the platform.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We built a <strong>native storefront within the application</strong>: product cards with detailed specs, cart state management, order notes, delivery instructions, and an encrypted checkout flow with clear security messaging — all sharing the platform's design system, so shopping feels like a natural extension of learning rather than a bolted-on shop.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>4. Rich Animation Without Sacrificing Speed</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>An education brand aimed at innovators must feel modern and dynamic — but animation libraries, galleries, forms, and store logic can bloat a single-page app into a slow first load, especially on the mobile devices most parents and students browse with.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We engineered <strong>performance into the build</strong>: the React core and animation engine ship as separate cacheable vendor chunks loaded in parallel, fonts are preconnected, and animations run on GPU-friendly transforms. The platform keeps its kinetic, high-energy feel while staying fast on 4G connections.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="container">
+    <h2 class="section-title">Tech Stack</h2>
+    <p class="section-sub">A modern, high-performance stack chosen for interactivity, maintainability, and a premium animated experience.</p>
+    <div class="tech-grid">
+      <div class="tech-card"><div class="icon">⚛️</div><h4>React + Vite</h4><p>A fast single-page application built with React and bundled by Vite for instant dev cycles and optimized production builds.</p></div>
+      <div class="tech-card"><div class="icon">🎨</div><h4>Tailwind CSS Design System</h4><p>A custom design system with brand palettes for primary, secondary, and accent colors applied consistently across every page.</p></div>
+      <div class="tech-card"><div class="icon">✨</div><h4>Animation Engine</h4><p>Scroll-triggered reveals, animated stat counters, and micro-interactions delivered through a dedicated, code-split animation vendor bundle.</p></div>
+      <div class="tech-card"><div class="icon">🛒</div><h4>E-Commerce Module</h4><p>Custom-built product catalog, cart state management, and secure checkout flow living natively inside the platform.</p></div>
+      <div class="tech-card"><div class="icon">📅</div><h4>Booking System</h4><p>Consultation scheduler with channel selection (video, phone, in-person), date and time-slot picking, and confirmation flows.</p></div>
+      <div class="tech-card"><div class="icon">✒️</div><h4>Poppins + Inter Typography</h4><p>A confident dual-typeface system — Poppins for bold headings, Inter for readable body text — with gradient display treatments.</p></div>
+      <div class="tech-card"><div class="icon">▲</div><h4>Vercel Edge Hosting</h4><p>Globally distributed deployment with automatic HTTPS, edge caching, and preview environments for every update.</p></div>
+      <div class="tech-card"><div class="icon">📦</div><h4>Code-Split Bundles</h4><p>React and animation vendors load as parallel cacheable chunks, keeping first paint fast and repeat visits instant.</p></div>
+      <div class="tech-card"><div class="icon">📱</div><h4>Responsive Design</h4><p>Mobile-first layouts tested across phones, tablets, and desktops — where most parents and students first discover the brand.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-panel">
+      <h2>Want to Launch a Multi-Audience Digital Platform?</h2>
+      <div class="right">
+        <p>If your business serves more than one audience — and deserves a platform that speaks to each of them — Akechi Webcraft Pvt. Ltd. can design and build it the right way.</p>
+        <p><strong>The Experts are Here!</strong></p>
+        <a class="btn btn-solid" href="mailto:info@akechiwebcraft.com">Contact Us ➢</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h5>About Akechi Webcraft</h5>
+        <p>Akechi Webcraft Pvt. Ltd. is a web design and development company crafting premium digital experiences — from e-commerce stores to enterprise platforms — that help businesses grow online.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#overview">About Us</a>
+        <a href="#glance">Our Work</a>
+        <a href="#challenges">Case Studies</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <a href="#features">Platform Development</a>
+        <a href="#features">React Development</a>
+        <a href="#features">E-Commerce Development</a>
+        <a href="#features">Web Design &amp; Branding</a>
+      </div>
+      <div>
+        <h5>This Project</h5>
+        <a href="https://labofinnovation.vercel.app/" target="_blank">Lab of Innovation — Live Platform</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="container">
+      <span>C Scheme, Jaipur, Rajasthan, India &nbsp;·&nbsp; +91 73000 96277 &nbsp;·&nbsp; info@akechiwebcraft.com</span>
+      <span>© Akechi Webcraft Pvt. Ltd.</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var header = document.querySelector('header.nav');
+  var toggle = document.querySelector('.nav-toggle');
+  if(!header || !toggle) return;
+  function closeMenu(){
+    header.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('nav.links a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+  document.addEventListener('click', function(e){
+    if(header.classList.contains('nav-open') && !header.contains(e.target)) closeMenu();
+  });
+})();
+</script>
+</body>
+</html>

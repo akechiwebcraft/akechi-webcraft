@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParcelAce.in — Logistics Platform Case Study | Akechi Webcraft Pvt. Ltd.</title>
+<meta name="description" content="How Akechi Webcraft Pvt. Ltd. designed and built parcelace.in — a conversion-focused digital platform for a custom logistics company serving DKMS, Dentsu, and Intugine.">
+<link rel="icon" href="akechi-logo.png">
+<meta name="theme-color" content="#1b1210">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ParcelAce.in — Logistics Platform Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta property="og:description" content="How Akechi Webcraft Pvt. Ltd. designed and built parcelace.in — a conversion-focused digital platform for a custom logistics company serving DKMS, Dentsu, and Intugine.">
+<meta property="og:image" content="akechi-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ParcelAce.in — Logistics Platform Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta name="twitter:description" content="How Akechi Webcraft Pvt. Ltd. designed and built parcelace.in — a conversion-focused digital platform for a custom logistics company serving DKMS, Dentsu, and Intugine.">
+<style>
+  :root{
+    --cloud:#f2f6fa;
+    --cloud-dark:#e2eaf2;
+    --ink:#12233a;
+    --navy:#1b3a5c;
+    --blue:#1e78c8;
+    --sky:#7db4e0;
+    --sky-light:#c6ddf0;
+    --white:#ffffff;
+    --muted:#5d7186;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--white);color:var(--ink);line-height:1.6;}
+  .container{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  /* Top bar */
+  .topbar{background:var(--navy);color:var(--cloud);font-size:13px;padding:8px 0;}
+  .topbar .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;}
+  .topbar span{opacity:.9;}
+
+  /* Nav */
+  header.nav{background:var(--white);border-bottom:1px solid var(--cloud-dark);padding:16px 0;}
+  header.nav .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .logo{display:flex;align-items:center;}
+  .logo img{height:48px;width:auto;display:block;}
+  nav.links{display:flex;gap:22px;font-size:14px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;}
+  nav.links a{color:var(--ink);text-decoration:none;}
+  nav.links a:hover{color:var(--blue);}
+  .nav-cta{display:flex;gap:10px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;}
+  .btn{display:inline-block;padding:9px 20px;border-radius:6px;font-size:14px;text-decoration:none;border:none;cursor:pointer;}
+  .btn-outline{border:1.5px solid var(--navy);color:var(--navy);background:transparent;}
+  .btn-solid{background:var(--blue);color:var(--white);}
+  .btn-dark{background:var(--ink);color:var(--cloud);}
+
+  /* Hero */
+  .hero{background:var(--cloud);padding:72px 0 64px;text-align:center;}
+  .hero h1{font-size:42px;line-height:1.25;max-width:840px;margin:0 auto 20px;}
+  .hero h1 .accent{color:var(--blue);}
+  .hero p.lede{max-width:720px;margin:0 auto;font-size:17px;color:var(--navy);font-family:'Segoe UI',Helvetica,Arial,sans-serif;}
+  .hero .site-link{display:inline-block;margin-top:26px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1px;color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue);}
+  .stat-row{margin:46px auto 0;max-width:860px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .stat{background:var(--white);border-radius:14px;padding:26px 12px;box-shadow:0 8px 24px rgba(18,35,58,.08);}
+  .stat .n{font-size:34px;font-weight:bold;color:var(--blue);font-family:'Segoe UI',Helvetica,Arial,sans-serif;}
+  .stat .l{font-size:12.5px;color:var(--muted);font-family:'Segoe UI',Helvetica,Arial,sans-serif;margin-top:4px;}
+
+  /* Overview */
+  .overview{padding:64px 0;}
+  .panel{background:var(--cloud);border-radius:14px;padding:44px 48px;display:flex;gap:40px;flex-wrap:wrap;}
+  .panel .kicker-col{min-width:180px;}
+  .kicker{font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);}
+  .kicker::after{content:"";display:inline-block;width:36px;height:1px;background:var(--blue);margin-left:10px;vertical-align:middle;}
+  .panel h2{font-size:24px;color:var(--blue);margin-top:6px;}
+  .panel .body-col{flex:1;min-width:300px;border-left:2px solid var(--sky);padding-left:32px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;color:var(--navy);}
+  .panel .body-col p+p{margin-top:14px;}
+
+  /* Section headings */
+  .section-title{text-align:center;font-size:32px;color:var(--blue);margin-bottom:12px;}
+  .section-sub{text-align:center;max-width:760px;margin:0 auto 48px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;color:var(--muted);}
+
+  /* Key features */
+  .features{padding:24px 0 40px;}
+  .feature{display:flex;gap:48px;align-items:center;margin-bottom:64px;flex-wrap:wrap;}
+  .feature:nth-child(even){flex-direction:row-reverse;}
+  .feature .visual{flex:1;min-width:280px;border-radius:14px;min-height:300px;background:var(--cloud);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .feature .visual .swatch{width:78%;height:74%;border-radius:10px;background:linear-gradient(135deg,var(--sky) 0%,var(--navy) 100%);box-shadow:0 18px 40px rgba(18,35,58,.25);display:flex;align-items:center;justify-content:center;color:var(--cloud);font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-align:center;padding:16px;}
+  .feature .text{flex:1;min-width:300px;}
+  .feature .num{font-size:72px;color:var(--sky-light);font-weight:bold;line-height:1;}
+  .feature h3{font-size:22px;margin:8px 0 12px;}
+  .feature p{font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;color:var(--navy);}
+
+  /* Glance */
+  .glance{background:var(--cloud);padding:64px 0;}
+  .glance-grid{display:flex;gap:48px;flex-wrap:wrap;align-items:center;}
+  .glance-visual{flex:1;min-width:280px;border-radius:14px;min-height:360px;background:linear-gradient(160deg,var(--sky-light),var(--sky) 60%,var(--navy));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .glance-visual .badge{background:rgba(255,255,255,.92);border-radius:12px;padding:22px 28px;text-align:center;font-family:'Segoe UI',Helvetica,Arial,sans-serif;}
+  .glance-visual .badge .big{font-size:30px;font-weight:800;color:var(--navy);}
+  .glance-visual .badge .small{font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;}
+  .glance-list{flex:1.2;min-width:320px;}
+  .glance-list h2{font-size:26px;margin-bottom:20px;}
+  .glance-list ul{list-style:none;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:14.5px;color:var(--navy);}
+  .glance-list li{padding:7px 0 7px 26px;position:relative;}
+  .glance-list li::before{content:"➢";position:absolute;left:0;color:var(--blue);}
+
+  /* Challenges */
+  .challenges{padding:72px 0 40px;}
+  .cs-block{margin-bottom:52px;}
+  .cs-block h3{font-size:21px;margin-bottom:18px;}
+  .cs-cols{display:flex;gap:28px;flex-wrap:wrap;}
+  .cs-col{flex:1;min-width:300px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:14.5px;color:var(--navy);}
+  .cs-col .tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;}
+  .cs-col .tag::after{content:"";display:inline-block;width:36px;height:1px;background:var(--blue);margin-left:10px;vertical-align:middle;}
+  .cs-col.solution{background:var(--cloud);border-radius:12px;padding:24px 26px;}
+  .cs-col strong{color:var(--ink);}
+
+  /* Tech stack */
+  .tech{padding:40px 0 72px;}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tech-card{border:1px solid var(--cloud-dark);border-radius:12px;padding:26px 24px;background:var(--white);}
+  .tech-card .icon{width:40px;height:40px;border-radius:9px;background:var(--cloud);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px;}
+  .tech-card h4{font-size:16px;margin-bottom:8px;}
+  .tech-card p{font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;color:var(--muted);}
+
+  /* CTA */
+  .cta{padding:0 0 72px;}
+  .cta-panel{background:linear-gradient(120deg,var(--navy),var(--ink));border-radius:16px;padding:56px;display:flex;gap:40px;align-items:center;flex-wrap:wrap;color:var(--cloud);}
+  .cta-panel h2{font-size:30px;flex:1;min-width:280px;}
+  .cta-panel .right{flex:1;min-width:280px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;}
+  .cta-panel .right p{margin-bottom:20px;opacity:.9;}
+
+  /* Footer */
+  footer{background:var(--cloud);padding:56px 0 0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;}
+  .foot-grid h5{font-size:14px;margin-bottom:14px;color:var(--ink);}
+  .foot-grid p,.foot-grid a{font-size:13.5px;color:var(--muted);text-decoration:none;display:block;margin-bottom:8px;}
+  .foot-grid a:hover{color:var(--blue);}
+  .foot-bottom{background:var(--navy);color:var(--cloud);font-size:13px;padding:14px 0;}
+  .foot-bottom .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+
+  /* --- UX polish: motion, focus, hover feedback --- */
+  html{scroll-behavior:smooth;}
+  a,button{-webkit-tap-highlight-color:transparent;}
+  a:focus-visible,button:focus-visible,.btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px;}
+  .skip-link{position:absolute;left:12px;top:-48px;background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;z-index:1000;transition:top .2s ease;}
+  .skip-link:focus{top:12px;}
+  .btn{transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.16);}
+  .btn:active{transform:translateY(0);box-shadow:none;}
+  nav.links a{position:relative;transition:color .18s ease;}
+  nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .2s ease;transform-origin:left;}
+  nav.links a:hover::after,nav.links a:focus-visible::after{transform:scaleX(1);}
+  .stat,.tech-card,.tile,.feature .visual{transition:transform .22s ease,box-shadow .22s ease;}
+  .stat:hover,.tech-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.10);}
+  .tile:hover,.feature .visual:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,0,0,.22);}
+  .foot-grid a{transition:color .15s ease,transform .15s ease;}
+  .foot-grid a:hover{transform:translateX(3px);}
+
+  /* --- Mobile nav toggle --- */
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;margin:0;width:40px;height:40px;align-items:center;justify-content:center;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:5px auto;transition:transform .25s ease,opacity .2s ease;}
+  header.nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  header.nav.nav-open .nav-toggle span:nth-child(2){opacity:0;}
+  header.nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition-duration:.001ms !important;animation-duration:.001ms !important;}
+  }
+
+  @media (max-width:820px){
+    .hero h1{font-size:30px;}
+    .stat-row{grid-template-columns:1fr 1fr;}
+    .tech-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .panel{padding:32px 26px;}
+    .panel .body-col{border-left:none;padding-left:0;}
+    header.nav{position:relative;}
+    header.nav .container{position:relative;}
+    .nav-toggle{display:flex;}
+    nav.links{display:none;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--white);border-bottom:1px solid var(--steel);box-shadow:0 16px 30px rgba(0,0,0,.12);padding:8px 0;z-index:50;}
+    nav.links a{padding:13px 32px;width:100%;}
+    nav.links a::after{display:none;}
+    header.nav.nav-open nav.links{display:flex;}
+  }
+  @media print{
+    .topbar,.nav-cta,nav.links{display:none;}
+    .hero{padding:40px 0;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="topbar">
+  <div class="container">
+    <span>📍 Location: C Scheme, Jaipur, Rajasthan, India</span>
+    <span>📞 +91 73000 96277 &nbsp;&nbsp; ✉️ info@akechiwebcraft.com</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="container">
+    <div class="logo">
+      <img src="akechi-logo.png" alt="Akechi Webcraft IT Solutions logo">
+    </div>
+    <nav class="links" id="primary-nav">
+      <a href="#overview">Company</a>
+      <a href="#features">Services</a>
+      <a href="#glance">Portfolio</a>
+      <a href="#challenges">Case Studies</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-cta">
+      <a class="btn btn-outline" href="#contact">Contact Us</a>
+      <a class="btn btn-solid" href="#contact">Schedule a Call</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="main">
+  <div class="container">
+    <h1>A <span class="accent">Conversion-Focused Digital Platform</span> for Custom Logistics Solutions</h1>
+    <p class="lede">ParcelAce is a logistics company with 10+ years in India's reverse logistics sector, serving enterprise clients like DKMS, Dentsu, and Intugine. Akechi Webcraft Pvt. Ltd. designed and built parcelace.in — a bold, story-driven platform that positions ParcelAce against courier aggregators, showcases metric-led case studies, and converts enterprise visitors into qualified consultations.</p>
+    <a class="site-link" href="https://parcelace.in" target="_blank">VISIT THE LIVE SITE — PARCELACE.IN</a>
+    <div class="stat-row">
+      <div class="stat"><div class="n">10+</div><div class="l">Years Experience</div></div>
+      <div class="stat"><div class="n">98%</div><div class="l">On-Time Air Delivery</div></div>
+      <div class="stat"><div class="n">0%</div><div class="l">Client Churn</div></div>
+      <div class="stat"><div class="n">5K+</div><div class="l">Air Express Deliveries</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="overview" id="overview">
+  <div class="container">
+    <div class="panel">
+      <div class="kicker-col">
+        <div class="kicker">Overview</div>
+        <h2>Project Overview</h2>
+      </div>
+      <div class="body-col">
+        <p>ParcelAce doesn't sell cheap shipping — it engineers custom logistics programmes for operations that standard couriers can't handle: bone marrow donor kit pickups, corporate laptop dispatch, and pan-India GPS device recovery. Its website needed to do something most logistics sites don't: challenge the status quo, prove enterprise credibility, and filter for the right clients rather than chase every lead.</p>
+        <p>Akechi Webcraft built parcelace.in as a narrative-first platform. Provocative positioning ("They stopped working with courier aggregators. Have you?") leads into industry-specific solution pages, real client case studies with hard numbers, a founder's letter, and a consultation form that qualifies leads by industry and shipment volume — all connected to ParcelAce's order tracking, customer app portal, and mobile apps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <h2 class="section-title">Key Features</h2>
+    <p class="section-sub">Our goal was a platform where brand positioning, enterprise proof, and lead qualification work together — turning a logistics website into ParcelAce's most effective salesperson.</p>
+
+    <div class="feature">
+      <div class="visual"><div class="swatch">Narrative-First Positioning</div></div>
+      <div class="text">
+        <div class="num">01.</div>
+        <h3>Bold, Narrative-Driven Brand Positioning</h3>
+        <p>The homepage opens by naming ParcelAce's marquee clients — DKMS, Dentsu, Intugine — and directly challenging the visitor's reliance on courier aggregators. A comparison section contrasts the aggregator's ticket-and-wait cycle with ParcelAce's direct hub-manager escalation, making the core differentiator impossible to miss. Headline stats (10+ years, 98% on-time, 0% churn) anchor the claims in numbers.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual"><div class="swatch">Industry Solution Pages</div></div>
+      <div class="text">
+        <div class="num">02.</div>
+        <h3>Industry-Specific Solution Architecture</h3>
+        <p>Six dedicated solution verticals — IT &amp; Corporate kits, Healthcare &amp; NGO donor logistics, GPS &amp; IoT device pickups, D2C brands, Instagram sellers, and outbound IT asset moves — each with its own landing page. A structured solutions menu routes every visitor type to a page written in the language of their exact operational problem.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual"><div class="swatch">Case Studies &amp; Proof</div></div>
+      <div class="text">
+        <div class="num">03.</div>
+        <h3>Metric-Led Case Studies &amp; Client Proof</h3>
+        <p>Real operational problems presented with hard outcomes: 50% improvement in donor pickup success for DKMS, 2-hour resolution versus the 48-hour industry standard for corporate assets, and near-zero failed GPS device pickups pan-India. A client logo wall, numbered trust profiles, and a personal founder's letter give enterprise procurement teams everything due diligence asks for.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual"><div class="swatch">Qualified Lead Capture</div></div>
+      <div class="text">
+        <div class="num">04.</div>
+        <h3>Lead-Qualifying Consultation Funnel</h3>
+        <p>Instead of a generic contact form, the consultation booking flow qualifies every lead — industry, monthly shipment volume, WhatsApp number, and the visitor's biggest logistics problem. Copy like "We don't work with everyone" filters out poor-fit enquiries while raising perceived value, and a promised 4-business-hour direct response sets the anti-ticketing tone from first contact.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual"><div class="swatch">Platform Ecosystem</div></div>
+      <div class="text">
+        <div class="num">05.</div>
+        <h3>Integrated Platform Ecosystem</h3>
+        <p>The marketing site connects seamlessly to ParcelAce's operational platform: public order tracking, customer login and signup to the web app, newsletter capture, WhatsApp contact touchpoints, and download links for the iOS and Android apps — so the website works as the front door to the entire product, not a standalone brochure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="glance" id="glance">
+  <div class="container">
+    <div class="glance-grid">
+      <div class="glance-visual">
+        <div class="badge">
+          <div class="big">parcelace.in</div>
+          <div class="small">We don't just ship. We solve.</div>
+        </div>
+      </div>
+      <div class="glance-list">
+        <h2>Features at a Glance</h2>
+        <ul>
+          <li>Narrative-driven homepage with bold anti-aggregator positioning</li>
+          <li>Six industry-specific solution landing pages</li>
+          <li>Metric-led case study showcase (DKMS, IT corporate, GPS/IoT)</li>
+          <li>Enterprise client logo wall with trust profiles</li>
+          <li>Aggregator vs. ParcelAce comparison module</li>
+          <li>Capability grid — AI WhatsApp agents, voice AI, 24-hour Air Express</li>
+          <li>Founder's letter for personal brand credibility</li>
+          <li>Lead-qualifying consultation form with industry &amp; volume fields</li>
+          <li>Public order tracking integration</li>
+          <li>Customer login / signup portal to the ParcelAce web app</li>
+          <li>iOS &amp; Android app download integration</li>
+          <li>WhatsApp and email contact touchpoints</li>
+          <li>Newsletter subscription capture</li>
+          <li>Fully responsive, mobile-first experience with SEO-ready structure</li>
+        </ul>
+        <p style="margin-top:22px;"><a class="btn btn-dark" href="#contact">Connect with Us ➢</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="challenges" id="challenges">
+  <div class="container">
+    <h2 class="section-title">Project Challenges and Their Solutions</h2>
+    <p class="section-sub">Selling premium logistics against commodity aggregators takes more than a pretty website. Here is how we solved it.</p>
+
+    <div class="cs-block">
+      <h3>1. Differentiating from Commodity Courier Aggregators</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>Every logistics website promises "reliable shipping and great support." ParcelAce's real advantage — direct hub-manager relationships and custom-engineered programmes — is invisible in a standard feature list, and visitors default to comparing on price.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We built the site around <strong>contrast storytelling</strong>: a side-by-side module showing exactly what happens when a shipment breaks — the aggregator's five-step ticket spiral versus ParcelAce's direct hub-manager call resolved in 2–3 hours. Naming real clients in the headline reframes the conversation from price to proof before pricing is ever discussed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>2. Serving Six Very Different Audiences on One Site</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>An NGO managing donor kits, an IT manager dispatching laptops, and an Instagram seller shipping 30 orders a month have almost nothing in common. One generic pitch would resonate with none of them.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We designed an <strong>industry-first information architecture</strong>: a solutions menu with six dedicated landing pages, each opening with that audience's specific operational pain (fake pickup remarks, stuck laptops, unavailable store incharges) and the exact system ParcelAce built to fix it. Every visitor lands on a page that feels written just for them.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>3. Winning Trust from Enterprise Procurement Teams</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>ParcelAce's target buyers — companies like Dentsu and DKMS — run vendor due diligence with zero tolerance for failure. A logistics vendor's website has to survive scrutiny that consumer brands never face.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We layered <strong>evidence at every scroll depth</strong>: hard outcome metrics (50% pickup improvement, 2-hour resolutions, ~0% failed pickups), named client profiles explaining why each chose ParcelAce, a capability grid covering the Meta Tech Partner WhatsApp API and AI voice agents, and a first-person founder's letter that gives the company a face and a philosophy.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>4. Prioritizing Lead Quality over Lead Volume</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>ParcelAce deliberately doesn't work with everyone. A conventional "contact us" funnel would flood the operations team with poor-fit enquiries and dilute the premium positioning the rest of the site works to build.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We designed a <strong>qualification-first consultation flow</strong>: structured fields for industry and monthly shipment volume, a free-text prompt for the visitor's biggest logistics problem, and copy that promises an honest "not a fit" answer. The form filters leads before a human ever reads them — and the selectivity itself reinforces the brand.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="container">
+    <h2 class="section-title">Tech Stack</h2>
+    <p class="section-sub">A pragmatic stack built for storytelling, speed, and seamless hand-off to ParcelAce's operational platform.</p>
+    <div class="tech-grid">
+      <div class="tech-card"><div class="icon">🧱</div><h4>Custom Front-End (HTML5 / CSS3 / JS)</h4><p>A hand-built, design-led front end powering the narrative layout, comparison modules, and interactive solution menus.</p></div>
+      <div class="tech-card"><div class="icon">📱</div><h4>Responsive Design System</h4><p>Mobile-first layouts and a consistent component system keeping the experience sharp from desktop to smartphone.</p></div>
+      <div class="tech-card"><div class="icon">📝</div><h4>Lead Capture &amp; Routing</h4><p>Qualification form with structured industry and volume fields, routed directly to the operations team for 4-hour response.</p></div>
+      <div class="tech-card"><div class="icon">💬</div><h4>WhatsApp Touchpoints</h4><p>Click-to-chat contact integration aligned with ParcelAce's WhatsApp-first support and automation ecosystem.</p></div>
+      <div class="tech-card"><div class="icon">📦</div><h4>Order Tracking Integration</h4><p>Public shipment tracking connected to ParcelAce's logistics platform, accessible straight from the main navigation.</p></div>
+      <div class="tech-card"><div class="icon">🔐</div><h4>Customer Portal Hand-off</h4><p>Login and signup flows bridging the marketing site to the ParcelAce web application for sellers and enterprise clients.</p></div>
+      <div class="tech-card"><div class="icon">🔍</div><h4>SEO &amp; Metadata</h4><p>Structured page titles, descriptions, and crawlable solution pages targeting industry-specific logistics searches.</p></div>
+      <div class="tech-card"><div class="icon">📲</div><h4>App Store Integration</h4><p>Google Play and Apple App Store download paths connecting web visitors to ParcelAce's iOS and Android apps.</p></div>
+      <div class="tech-card"><div class="icon">⚡</div><h4>Performance Optimization</h4><p>Optimized assets and lightweight pages keeping load times fast for decision-makers browsing on any network.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-panel">
+      <h2>Want a Website That Sells Like Your Best Salesperson?</h2>
+      <div class="right">
+        <p>If your business solves hard problems, your website should prove it. Akechi Webcraft Pvt. Ltd. builds story-driven platforms that turn visitors into qualified leads.</p>
+        <p><strong>The Experts are Here!</strong></p>
+        <a class="btn btn-solid" href="mailto:info@akechiwebcraft.com">Contact Us ➢</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h5>About Akechi Webcraft</h5>
+        <p>Akechi Webcraft Pvt. Ltd. is a web design and development company crafting premium digital experiences — from e-commerce stores to enterprise platforms — that help businesses grow online.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#overview">About Us</a>
+        <a href="#glance">Our Work</a>
+        <a href="#challenges">Case Studies</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <a href="#features">Web Platform Development</a>
+        <a href="#features">E-Commerce Development</a>
+        <a href="#features">Web Design &amp; Branding</a>
+        <a href="#features">SEO &amp; Optimization</a>
+      </div>
+      <div>
+        <h5>This Project</h5>
+        <a href="https://parcelace.in" target="_blank">parcelace.in — Live Site</a>
+        <a href="https://www.raqz.in" target="_blank">raqz.in — Also by Akechi</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="container">
+      <span>C Scheme, Jaipur, Rajasthan, India &nbsp;·&nbsp; +91 73000 96277 &nbsp;·&nbsp; info@akechiwebcraft.com</span>
+      <span>© Akechi Webcraft Pvt. Ltd.</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var header = document.querySelector('header.nav');
+  var toggle = document.querySelector('.nav-toggle');
+  if(!header || !toggle) return;
+  function closeMenu(){
+    header.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('nav.links a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+  document.addEventListener('click', function(e){
+    if(header.classList.contains('nav-open') && !header.contains(e.target)) closeMenu();
+  });
+})();
+</script>
+</body>
+</html>

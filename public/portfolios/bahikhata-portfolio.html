@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bahi Khata Pro — SaaS Website Case Study | Akechi Webcraft Pvt. Ltd.</title>
+<meta name="description" content="How Akechi Webcraft Pvt. Ltd. designed and built the Bahi Khata Pro commercial website — a multilingual, high-converting marketing platform for India's #1 industry-ready ERP SaaS.">
+<link rel="icon" href="akechi-logo.png">
+<meta name="theme-color" content="#1b1210">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bahi Khata Pro — SaaS Website Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta property="og:description" content="How Akechi Webcraft Pvt. Ltd. designed and built the Bahi Khata Pro commercial website — a multilingual, high-converting marketing platform for India's #1 industry-ready ERP SaaS.">
+<meta property="og:image" content="akechi-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bahi Khata Pro — SaaS Website Case Study | Akechi Webcraft Pvt. Ltd.">
+<meta name="twitter:description" content="How Akechi Webcraft Pvt. Ltd. designed and built the Bahi Khata Pro commercial website — a multilingual, high-converting marketing platform for India's #1 industry-ready ERP SaaS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Bahi Khata Pro brand palette (navy + saffron) */
+    --navy:#0b1120;         /* navy-900 */
+    --navy-2:#1e2d4d;       /* navy-700 */
+    --navy-3:#141e33;       /* navy-800 */
+    --navy-mid:#3d5a9e;     /* navy-500 */
+    --navy-soft:#b3c1e1;    /* navy-200 */
+    --ink:#0f172a;
+    --saffron:#f08c00;      /* saffron-500 */
+    --saffron-deep:#d47200; /* saffron-600 */
+    --saffron-bright:#ffa620; /* saffron-400 */
+    --sky:#f1f5f9;
+    --sky-dark:#d9e0f0;
+    --steel:#e2e8f0;
+    --white:#ffffff;
+    --muted:#64748b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter','Segoe UI',Helvetica,Arial,sans-serif;background:var(--white);color:var(--ink);line-height:1.6;}
+  .container{max-width:1080px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3,h4,h5{font-weight:800;letter-spacing:-.01em;}
+
+  /* Top bar */
+  .topbar{background:var(--navy);color:var(--sky);font-size:13px;padding:8px 0;}
+  .topbar .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .topbar span{opacity:.9;}
+
+  /* Nav */
+  header.nav{background:var(--white);border-bottom:1px solid var(--steel);padding:16px 0;}
+  header.nav .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .logo{display:flex;align-items:center;}
+  .logo img{height:48px;width:auto;display:block;}
+  nav.links{display:flex;gap:22px;font-size:14px;}
+  nav.links a{color:var(--ink);text-decoration:none;font-weight:500;}
+  nav.links a:hover{color:var(--saffron-deep);}
+  .nav-cta{display:flex;gap:10px;}
+  .btn{display:inline-block;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;}
+  .btn-outline{border:1.5px solid var(--navy);color:var(--navy);background:transparent;}
+  .btn-solid{background:var(--saffron);color:var(--navy);}
+  .btn-dark{background:var(--navy);color:var(--sky);}
+
+  /* Hero */
+  .hero{background:var(--navy);padding:72px 0 64px;text-align:center;}
+  .hero .badge{display:inline-block;background:rgba(255,255,255,.06);border:1px solid var(--navy-2);color:var(--saffron-bright);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:22px;}
+  .hero h1{font-size:42px;line-height:1.2;max-width:860px;margin:0 auto 20px;font-weight:900;color:var(--white);}
+  .hero h1 .accent{color:var(--saffron-bright);}
+  .hero p.lede{max-width:720px;margin:0 auto;font-size:17px;color:var(--navy-soft);}
+  .hero .site-link{display:inline-block;margin-top:26px;font-size:14px;letter-spacing:1px;font-weight:700;color:var(--saffron-bright);text-decoration:none;border-bottom:2px solid var(--saffron-bright);}
+  .hero-visual{margin:48px auto 0;max-width:860px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;}
+  .tile{border-radius:14px;min-height:220px;background:linear-gradient(135deg,var(--navy-2) 0%,var(--navy-3) 100%);border:1px solid var(--navy-2);position:relative;overflow:hidden;display:flex;align-items:flex-end;}
+  .tile.t2{background:linear-gradient(135deg,var(--saffron-bright) 0%,var(--saffron-deep) 100%);border:none;}
+  .tile.t3{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy-2) 100%);border:none;}
+  .tile .label{width:100%;padding:14px;color:var(--sky);font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:linear-gradient(transparent,rgba(6,10,24,.7));text-align:left;position:relative;z-index:1;}
+  .tile .big{position:absolute;top:38%;left:0;right:0;transform:translateY(-50%);text-align:center;color:var(--white);}
+  .tile .big .n{font-size:38px;font-weight:900;display:block;line-height:1.1;}
+  .tile .big .d{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;}
+
+  /* Stats strip */
+  .stats-strip{max-width:860px;margin:22px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .stat{background:var(--navy-3);border:1px solid var(--navy-2);border-radius:12px;padding:18px 12px;}
+  .stat .n{font-size:24px;font-weight:900;color:var(--saffron-bright);}
+  .stat .d{font-size:12px;color:var(--navy-soft);font-weight:500;}
+
+  /* Overview */
+  .overview{padding:64px 0;}
+  .panel{background:var(--sky);border-radius:14px;padding:44px 48px;display:flex;gap:40px;flex-wrap:wrap;}
+  .panel .kicker-col{min-width:180px;}
+  .kicker{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .kicker::after{content:"";display:inline-block;width:36px;height:1px;background:var(--saffron-deep);margin-left:10px;vertical-align:middle;}
+  .panel h2{font-size:24px;color:var(--saffron-deep);margin-top:6px;}
+  .panel .body-col{flex:1;min-width:300px;border-left:2px solid var(--saffron-deep);padding-left:32px;font-size:15px;color:#33415c;}
+  .panel .body-col p+p{margin-top:14px;}
+
+  /* Section headings */
+  .section-title{text-align:center;font-size:32px;color:var(--navy);margin-bottom:12px;}
+  .section-title .accent{color:var(--saffron-deep);}
+  .section-sub{text-align:center;max-width:760px;margin:0 auto 48px;font-size:15px;color:var(--muted);}
+
+  /* Key features */
+  .features{padding:24px 0 40px;}
+  .feature{display:flex;gap:48px;align-items:center;margin-bottom:64px;flex-wrap:wrap;}
+  .feature:nth-child(even){flex-direction:row-reverse;}
+  .feature .visual{flex:1;min-width:280px;border-radius:14px;min-height:300px;background:var(--sky);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .feature .visual .swatch{width:78%;height:74%;border-radius:10px;background:linear-gradient(135deg,var(--navy-2) 0%,var(--navy) 100%);box-shadow:0 18px 40px rgba(11,17,32,.3);display:flex;align-items:center;justify-content:center;color:var(--sky);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;padding:16px;}
+  .feature .text{flex:1;min-width:300px;}
+  .feature .num{font-size:72px;color:var(--sky-dark);font-weight:900;line-height:1;}
+  .feature h3{font-size:22px;margin:8px 0 12px;}
+  .feature p{font-size:15px;color:#33415c;}
+
+  /* Glance */
+  .glance{background:var(--sky);padding:64px 0;}
+  .glance-grid{display:flex;gap:48px;flex-wrap:wrap;align-items:center;}
+  .glance-visual{flex:1;min-width:280px;border-radius:14px;min-height:360px;background:linear-gradient(160deg,var(--navy-mid),var(--navy-2) 55%,var(--navy));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .glance-visual .mock{color:var(--white);text-align:center;padding:24px;}
+  .glance-visual .mock .t{font-size:26px;font-weight:900;line-height:1.25;}
+  .glance-visual .mock .s{font-size:13px;opacity:.85;margin-top:10px;letter-spacing:1px;text-transform:uppercase;}
+  .glance-list{flex:1.2;min-width:320px;}
+  .glance-list h2{font-size:26px;margin-bottom:20px;}
+  .glance-list ul{list-style:none;font-size:14.5px;color:#33415c;}
+  .glance-list li{padding:7px 0 7px 26px;position:relative;}
+  .glance-list li::before{content:"➢";position:absolute;left:0;color:var(--saffron-deep);}
+
+  /* Challenges */
+  .challenges{padding:72px 0 40px;}
+  .cs-block{margin-bottom:52px;}
+  .cs-block h3{font-size:21px;margin-bottom:18px;}
+  .cs-cols{display:flex;gap:28px;flex-wrap:wrap;}
+  .cs-col{flex:1;min-width:300px;font-size:14.5px;color:#33415c;}
+  .cs-col .tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--saffron-deep);font-weight:700;margin-bottom:10px;}
+  .cs-col .tag::after{content:"";display:inline-block;width:36px;height:1px;background:var(--saffron-deep);margin-left:10px;vertical-align:middle;}
+  .cs-col.solution{background:var(--sky);border-radius:12px;padding:24px 26px;}
+  .cs-col strong{color:var(--ink);}
+
+  /* Tech stack */
+  .tech{padding:40px 0 72px;}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tech-card{border:1px solid var(--steel);border-radius:12px;padding:26px 24px;background:var(--white);}
+  .tech-card .icon{width:40px;height:40px;border-radius:9px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px;}
+  .tech-card h4{font-size:16px;margin-bottom:8px;}
+  .tech-card p{font-size:13.5px;color:var(--muted);}
+
+  /* CTA */
+  .cta{padding:0 0 72px;}
+  .cta-panel{background:linear-gradient(120deg,var(--navy),var(--navy-2));border-radius:16px;padding:56px;display:flex;gap:40px;align-items:center;flex-wrap:wrap;color:var(--sky);}
+  .cta-panel h2{font-size:30px;flex:1;min-width:280px;color:var(--white);}
+  .cta-panel .right{flex:1;min-width:280px;font-size:15px;}
+  .cta-panel .right p{margin-bottom:20px;opacity:.9;}
+
+  /* Footer */
+  footer{background:var(--sky);padding:56px 0 0;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;}
+  .foot-grid h5{font-size:14px;margin-bottom:14px;color:var(--ink);}
+  .foot-grid p,.foot-grid a{font-size:13.5px;color:var(--muted);text-decoration:none;display:block;margin-bottom:8px;}
+  .foot-grid a:hover{color:var(--saffron-deep);}
+  .foot-bottom{background:var(--navy);color:var(--sky);font-size:13px;padding:14px 0;}
+  .foot-bottom .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+
+  /* --- UX polish: motion, focus, hover feedback --- */
+  html{scroll-behavior:smooth;}
+  a,button{-webkit-tap-highlight-color:transparent;}
+  a:focus-visible,button:focus-visible,.btn:focus-visible{outline:2px solid var(--saffron-deep);outline-offset:3px;border-radius:6px;}
+  .skip-link{position:absolute;left:12px;top:-48px;background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;z-index:1000;transition:top .2s ease;}
+  .skip-link:focus{top:12px;}
+  .btn{transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.16);}
+  .btn:active{transform:translateY(0);box-shadow:none;}
+  nav.links a{position:relative;transition:color .18s ease;}
+  nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--saffron-deep);transform:scaleX(0);transition:transform .2s ease;transform-origin:left;}
+  nav.links a:hover::after,nav.links a:focus-visible::after{transform:scaleX(1);}
+  .stat,.tech-card,.tile,.feature .visual{transition:transform .22s ease,box-shadow .22s ease;}
+  .stat:hover,.tech-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.10);}
+  .tile:hover,.feature .visual:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,0,0,.22);}
+  .foot-grid a{transition:color .15s ease,transform .15s ease;}
+  .foot-grid a:hover{transform:translateX(3px);}
+
+  /* --- Mobile nav toggle --- */
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;margin:0;width:40px;height:40px;align-items:center;justify-content:center;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:5px auto;transition:transform .25s ease,opacity .2s ease;}
+  header.nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  header.nav.nav-open .nav-toggle span:nth-child(2){opacity:0;}
+  header.nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition-duration:.001ms !important;animation-duration:.001ms !important;}
+  }
+
+  @media (max-width:820px){
+    .hero h1{font-size:30px;}
+    .hero-visual{grid-template-columns:1fr 1fr;}
+    .stats-strip{grid-template-columns:1fr 1fr;}
+    .tech-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .panel{padding:32px 26px;}
+    .panel .body-col{border-left:none;padding-left:0;}
+    header.nav{position:relative;}
+    header.nav .container{position:relative;}
+    .nav-toggle{display:flex;}
+    nav.links{display:none;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--white);border-bottom:1px solid var(--steel);box-shadow:0 16px 30px rgba(0,0,0,.12);padding:8px 0;z-index:50;}
+    nav.links a{padding:13px 32px;width:100%;}
+    nav.links a::after{display:none;}
+    header.nav.nav-open nav.links{display:flex;}
+  }
+  @media print{
+    .topbar,.nav-cta,nav.links{display:none;}
+    .hero{padding:40px 0;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="topbar">
+  <div class="container">
+    <span>📍 Location: C Scheme, Jaipur, Rajasthan, India</span>
+    <span>📞 +91 73000 96277 &nbsp;&nbsp; ✉️ info@akechiwebcraft.com</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="container">
+    <div class="logo">
+      <img src="akechi-logo.png" alt="Akechi Webcraft IT Solutions logo">
+    </div>
+    <nav class="links" id="primary-nav">
+      <a href="#overview">Company</a>
+      <a href="#features">Services</a>
+      <a href="#glance">Portfolio</a>
+      <a href="#challenges">Case Studies</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-cta">
+      <a class="btn btn-outline" href="#contact">Contact Us</a>
+      <a class="btn btn-solid" href="#contact">Schedule a Call</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="main">
+  <div class="container">
+    <div class="badge">SaaS Website · Case Study</div>
+    <h1>A <span class="accent">High-Converting Commercial Website</span> for India's Industry-Ready ERP SaaS</h1>
+    <p class="lede">Bahi Khata Pro combines the simplicity of Khatabook with the power of Tally — an ERP platform managing purchases, lot-based sales, inventory, ledger, and payments for Marble, Wood, Steel, Furniture, Retail, and Agriculture businesses. Akechi Webcraft Pvt. Ltd. designed and built its commercial website: a multilingual, conversion-engineered marketing platform that turns visitors into free-trial signups.</p>
+    <a class="site-link" href="https://bahi-khata-commercial-website.vercel.app/en" target="_blank">VISIT THE LIVE WEBSITE — BAHIKHATA.PRO</a>
+    <div class="hero-visual">
+      <div class="tile">
+        <div class="big"><span class="n">ERP SaaS</span><span class="d">Khatabook Simplicity × Tally Power</span></div>
+        <div class="label">India's #1 Industry-Ready ERP</div>
+      </div>
+      <div class="tile t2">
+        <div class="big"><span class="n">11</span><span class="d">Indian Languages</span></div>
+        <div class="label">Built for Bharat</div>
+      </div>
+      <div class="tile t3">
+        <div class="big"><span class="n">6+</span><span class="d">Industries Served</span></div>
+        <div class="label">Marble · Wood · Steel &amp; More</div>
+      </div>
+    </div>
+    <div class="stats-strip">
+      <div class="stat"><div class="n">10,000+</div><div class="d">Businesses Trust the Platform</div></div>
+      <div class="stat"><div class="n">₹500 Cr+</div><div class="d">Transactions Processed</div></div>
+      <div class="stat"><div class="n">99.9%</div><div class="d">Uptime Guaranteed</div></div>
+      <div class="stat"><div class="n">5</div><div class="d">Platforms — Web, Windows, macOS, Android, iOS</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="overview" id="overview">
+  <div class="container">
+    <div class="panel">
+      <div class="kicker-col">
+        <div class="kicker">Overview</div>
+        <h2>Project Overview</h2>
+      </div>
+      <div class="body-col">
+        <p>Selling an ERP is hard: the product is powerful, technical, and deeply industry-specific, while the buyer — a marble trader in Rajasthan, a timber merchant in Madhya Pradesh, a mandi operator in Uttar Pradesh — wants a simple answer to one question: "Will this work for my business?" Bahi Khata Pro needed a commercial website that could explain six ERP modules and six industry solutions without overwhelming anyone, speak to customers in their own language, and convert interest into free-trial signups.</p>
+        <p>Akechi Webcraft designed and built the Bahi Khata Pro website as a fast, modern single-page application with full internationalization across 11 Indian languages, light and dark themes, a four-tier pricing system with monthly/yearly billing toggle, customer testimonials, a multi-platform download hub, and a layered conversion toolkit — sticky offer bars, exit-intent popups, and trust-signal CTAs at every scroll depth. The result is a marketing site that sells enterprise software with consumer-grade clarity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <h2 class="section-title">Key Features</h2>
+    <p class="section-sub">Our goal was a single commercial website where product education, industry targeting, and conversion mechanics come together — so every visitor, from any industry and in any language, finds their reason to start a free trial.</p>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Conversion-First Hero</div>
+      </div>
+      <div class="text">
+        <div class="num">01.</div>
+        <h3>A Hero Section Engineered to Convert</h3>
+        <p>The homepage opens with a confident positioning statement — "India's Most Advanced Industry-Ready ERP SaaS" — backed instantly by hard proof: 10,000+ businesses, ₹500 Cr+ in processed transactions, and a 99.9% uptime guarantee. Triple CTAs (Start Free Trial, Book a Demo, Download Desktop App) capture visitors at every stage of buying intent within the first screen.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Product Showcase</div>
+      </div>
+      <div class="text">
+        <div class="num">02.</div>
+        <h3>Six ERP Modules, Explained Simply</h3>
+        <p>The product showcase distills a complex ERP into six digestible cards — Smart Purchase with mandi-style lot tracking, Lot-Based Sales with GST-compliant invoicing, AI-powered Real-Time Inventory, Digital Ledger &amp; Payments, WhatsApp Automation, and Multi-Tenant business management. Each card pairs a plain-language benefit with a "Learn More" pathway, so buyers self-educate without a sales call.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Industry Solutions</div>
+      </div>
+      <div class="text">
+        <div class="num">03.</div>
+        <h3>Industry-Specific Solution Pages</h3>
+        <p>Rather than generic feature lists, the site speaks each trade's language: slab management and wastage calculation for Marble &amp; Granite, volume-based pricing for Wood &amp; Timber, BOM management for Furniture, heat numbers and mill test certificates for Steel, POS and barcode workflows for Retail, and mandi rates with farmer payments for Agriculture. Every visitor sees their own business reflected on the page.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">11 Languages · Dark Mode</div>
+      </div>
+      <div class="text">
+        <div class="num">04.</div>
+        <h3>Full Localization in 11 Indian Languages</h3>
+        <p>The entire website — every headline, feature card, pricing plan, and popup — is translated into Hindi, Bengali, Gujarati, Kannada, Malayalam, Marathi, Odia, Punjabi, Tamil, and Telugu, with clean URL-based language routing. A flicker-free light/dark theme system respects each visitor's device preference, giving the site a polished, product-grade feel.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="visual">
+        <div class="swatch">Pricing &amp; Conversion Toolkit</div>
+      </div>
+      <div class="text">
+        <div class="num">05.</div>
+        <h3>Transparent Pricing &amp; Layered Conversion</h3>
+        <p>A four-tier pricing table (Basic ₹499 to Enterprise ₹4,999 and Custom) with a monthly/yearly toggle and "Save 20%" incentive makes the buying decision effortless. Around it, a full conversion toolkit works quietly: five-star customer testimonials from real industries, a sticky 30-day free-trial offer bar, an exit-intent popup with benefit checklist, and "No credit card required" reassurance at every CTA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="glance" id="glance">
+  <div class="container">
+    <div class="glance-grid">
+      <div class="glance-visual">
+        <div class="mock">
+          <div class="t">Everything You Need to<br>Run Your Business</div>
+          <div class="s">Purchase · Sales · Inventory · Ledger · Payments</div>
+        </div>
+      </div>
+      <div class="glance-list">
+        <h2>Features at a Glance</h2>
+        <ul>
+          <li>Conversion-engineered hero with live trust statistics</li>
+          <li>Six-module product showcase with benefit-led copy</li>
+          <li>Six dedicated industry solution presentations</li>
+          <li>Full internationalization across 11 Indian languages</li>
+          <li>URL-based locale routing with instant language switching</li>
+          <li>Flicker-free light &amp; dark theme system</li>
+          <li>Four-tier pricing with monthly/yearly billing toggle</li>
+          <li>Customer testimonial carousel with star ratings</li>
+          <li>Multi-platform download hub — Web, Windows, macOS, Android, iOS</li>
+          <li>Exit-intent popup with free-trial benefit checklist</li>
+          <li>Sticky promotional CTA bar (desktop &amp; mobile variants)</li>
+          <li>Product walkthrough video section</li>
+          <li>SEO-optimized metadata, Open Graph &amp; Twitter cards per page</li>
+          <li>Code-split, CDN-delivered bundles for fast global load times</li>
+          <li>Fully responsive, mobile-first design</li>
+        </ul>
+        <p style="margin-top:22px;"><a class="btn btn-dark" href="#contact">Connect with Us ➢</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="challenges" id="challenges">
+  <div class="container">
+    <h2 class="section-title">Project Challenges and Their Solutions</h2>
+    <p class="section-sub">Marketing enterprise software to small-business India brings unique friction points. Here is how we solved Bahi Khata Pro's.</p>
+
+    <div class="cs-block">
+      <h3>1. Explaining a Complex ERP Without Losing the Buyer</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>Bahi Khata Pro spans purchases, lot-based sales, cutting, inventory, ledger, payments, and multi-tenant management. Presenting all of it risked a wall of jargon that would scare away the exact small-business owners the product serves.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We applied a <strong>benefit-first information architecture</strong>: one anchor promise ("Khatabook simplicity, Tally power"), six plain-language module cards, and progressive disclosure — headlines carry the value, detail lives one click deeper. A walkthrough video section shows the product working instead of describing it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>2. One Website, Six Very Different Industries</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>A marble trader cares about slab wastage; a steel trader about heat numbers; an agri-trader about mandi rates and farmer payments. Generic ERP messaging would resonate with none of them — but six separate websites was not an option.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We designed an <strong>industry solutions grid</strong> where each of the six verticals gets its own card written in that trade's vocabulary — cutting optimization, seasoning tracking, BOM management, mill test certificates, POS integration, commission tracking. Matching testimonials from a marble owner, wood director, steel MD, and mandi manager close the credibility loop for each vertical.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>3. Reaching Bharat in Its Own Languages</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>The target customer often prefers Hindi, Tamil, Telugu, or Bengali over English. Most SaaS websites in India ship English-only, silently excluding the majority of the addressable market — but maintaining 11 language versions by hand is unsustainable.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We built a <strong>structured internationalization system</strong> — every string on the site lives in per-language translation files loaded on demand, with URL-based locale routing (/en, /hi, /ta…) for shareable, SEO-friendly language pages and a persistent language switcher. Adding or editing a language is a content task, not a development project.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>4. SPA Speed and SEO for a Marketing Site</h3>
+      <div class="cs-cols">
+        <div class="cs-col">
+          <div class="tag">Challenges</div>
+          <p>A rich, app-like single-page experience with themes, carousels, and popups can easily mean heavy JavaScript, slow first paint on mobile networks, and weak search-engine visibility — fatal flaws for a site whose job is acquiring organic traffic.</p>
+        </div>
+        <div class="cs-col solution">
+          <div class="tag">Solutions</div>
+          <p>We engineered for <strong>performance and discoverability together</strong>: vendor code-splitting so React, UI, and i18n libraries load in parallel cacheable chunks, font preconnects, a pre-paint theme script that eliminates dark-mode flash, and a per-page SEO head component managing titles, descriptions, Open Graph, and Twitter cards — all served from a global edge CDN.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="container">
+    <h2 class="section-title">Tech Stack</h2>
+    <p class="section-sub">A modern, high-performance stack chosen for speed, maintainability, and effortless multilingual content management.</p>
+    <div class="tech-grid">
+      <div class="tech-card"><div class="icon">⚛️</div><h4>React + Vite</h4><p>A fast single-page application built with React and bundled by Vite for instant dev cycles and optimized production builds.</p></div>
+      <div class="tech-card"><div class="icon">🌐</div><h4>i18next Localization</h4><p>Industry-standard internationalization delivering the full site in 11 Indian languages with on-demand translation loading.</p></div>
+      <div class="tech-card"><div class="icon">🌓</div><h4>Light / Dark Theming</h4><p>A flicker-free theme system that honors device preference and remembers the visitor's choice across sessions.</p></div>
+      <div class="tech-card"><div class="icon">▲</div><h4>Vercel Edge Hosting</h4><p>Globally distributed deployment with automatic HTTPS, edge caching, and preview environments for every update.</p></div>
+      <div class="tech-card"><div class="icon">📦</div><h4>Code-Split Bundles</h4><p>Vendor chunks for React, UI, and i18n libraries load in parallel and cache independently, keeping repeat visits instant.</p></div>
+      <div class="tech-card"><div class="icon">🔍</div><h4>SEO &amp; Structured Metadata</h4><p>Per-page titles, meta descriptions, Open Graph and Twitter cards managed through a dedicated SEO head component.</p></div>
+      <div class="tech-card"><div class="icon">🎯</div><h4>Conversion Widgets</h4><p>Custom-built exit-intent popup, sticky offer bar, and pricing toggle — the mechanics that turn readers into trial signups.</p></div>
+      <div class="tech-card"><div class="icon">✒️</div><h4>Inter Typography</h4><p>A crisp, product-grade type system built on the Inter typeface with a full weight range for confident SaaS hierarchy.</p></div>
+      <div class="tech-card"><div class="icon">📱</div><h4>Responsive Design</h4><p>Mobile-first layouts with dedicated mobile CTA variants, tested across phones, tablets, and desktops.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-panel">
+      <h2>Want to Launch a High-Converting SaaS Website?</h2>
+      <div class="right">
+        <p>If you have a product that deserves to be understood — and bought — Akechi Webcraft Pvt. Ltd. can design and build a website that explains it, localizes it, and converts for it.</p>
+        <p><strong>The Experts are Here!</strong></p>
+        <a class="btn btn-solid" href="mailto:info@akechiwebcraft.com">Contact Us ➢</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h5>About Akechi Webcraft</h5>
+        <p>Akechi Webcraft Pvt. Ltd. is a web design and development company crafting premium digital experiences — from e-commerce stores to SaaS platforms — that help businesses grow online.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#overview">About Us</a>
+        <a href="#glance">Our Work</a>
+        <a href="#challenges">Case Studies</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <a href="#features">SaaS Website Development</a>
+        <a href="#features">React Development</a>
+        <a href="#features">Web Design &amp; Branding</a>
+        <a href="#features">SEO &amp; Optimization</a>
+      </div>
+      <div>
+        <h5>This Project</h5>
+        <a href="https://bahi-khata-commercial-website.vercel.app/en" target="_blank">Bahi Khata Pro — Live Website</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="container">
+      <span>C Scheme, Jaipur, Rajasthan, India &nbsp;·&nbsp; +91 73000 96277 &nbsp;·&nbsp; info@akechiwebcraft.com</span>
+      <span>© Akechi Webcraft Pvt. Ltd.</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var header = document.querySelector('header.nav');
+  var toggle = document.querySelector('.nav-toggle');
+  if(!header || !toggle) return;
+  function closeMenu(){
+    header.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('nav.links a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+  document.addEventListener('click', function(e){
+    if(header.classList.contains('nav-open') && !header.contains(e.target)) closeMenu();
+  });
+})();
+</script>
+</body>
+</html>
