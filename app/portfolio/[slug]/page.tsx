@@ -69,7 +69,7 @@ const projectImageBySlug: Record<string, string> = {
   "lab-of-innovation": "/images/cases/lab-of-innovation.png",
   "parcelace": "/images/cases/parcelace.png",
   "raqz": "/images/cases/raqz.png",
-  "rocketcrm": "/images/cases/rocketcrm.png",
+  "akechi-crm": "/images/cases/rocketcrm.png",
   "carohitvijay": "/images/cases/carohitvijay.png",
   "at-solar": "/images/cases/at-solar.png",
   "nh-dry-fruits": "/images/cases/nh-dry-fruits-admin.png",

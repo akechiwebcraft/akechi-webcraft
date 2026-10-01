@@ -25,7 +25,7 @@ export const FOOTER_LINKS = [
     title: "Portfolio",
     links: [
       { label: "Bahi Khata Pro", href: "/portfolio/bahikhata-pro" },
-      { label: "RocketCRM", href: "/portfolio/rocketcrm" },
+      { label: "AKechi CRM", href: "/portfolio/akechi-crm" },
       { label: "ParcelAce", href: "/portfolio/parcelace" },
       { label: "A&T Solar", href: "/portfolio/at-solar" },
       { label: "NH Dry Fruits", href: "/portfolio/nh-dry-fruits" },

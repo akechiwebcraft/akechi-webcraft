@@ -943,90 +943,95 @@ export const PROJECTS: Record<string, Project> = {
     },
   },
 
-  'rocketcrm': {
-    slug: 'rocketcrm',
-    title: 'RocketCRM',
-    client: 'RocketCRM',
-    category: 'SaaS Platform',
-    description: 'RocketCRM brings the whole customer lifecycle onto one secure, modular stack — leads, projects, billing, support, and AI. A microservices-powered SaaS platform and the high-converting marketing website that sells it, built so teams can ship customer value in minutes, not months.',
-    challenge: 'Most teams run across scattered point tools with data split between them. Platform must feel simple to five-person startups yet safe to enterprises. Deep engineering (microservices, multi-tenancy, RBAC, events) risks intimidating non-technical buyers.',
-    solution: 'Architected as 20+ independently deployable microservices behind a single API gateway with multi-tenant isolation, RBAC, and audit baked in. Marketing site translates deep engineering into clear outcomes: "One platform for the whole customer lifecycle." Transparent pricing with dual-track funnel — self-serve for startups, enterprise track for procurement buyers.',
-    outcome: 'Platform where every module works alone and works together. Marketing site sells the engineering through outcomes, not architecture. Dual funnel serves both five-person teams and enterprises. SOC2-ready security gives enterprises the guarantees they need.',
+  'akechi-crm': {
+    slug: 'akechi-crm',
+    title: 'AKechi CRM',
+    client: 'Internal Product',
+    category: 'Multi-Tenant CRM/PSA SaaS',
+    description: 'AKechi CRM brings the whole customer lifecycle onto one secure, modular stack — leads, projects, billing, support, and AI. 22 independently deployable NestJS + Prisma microservices behind a single API gateway, and four Next.js frontends (portal, admin, customer, marketing) built so teams can ship customer value in minutes, not months.',
+    challenge: 'Most teams run across scattered CRM and PSA point tools with data split between them. The platform must feel simple to five-person startups yet safe to enterprises, and deep engineering — microservices, multi-tenancy, RBAC, audit — risks intimidating non-technical buyers if it is not backed by a genuinely deny-by-default security posture underneath.',
+    solution: 'Architected as 22 database-per-service microservices (152 models) behind a single API gateway, with a unified permission dialect and server-side deny-by-default authorization enforced in every service, in-cluster network policies for defense-in-depth, and a full observability stack (structured logs, Prometheus, OTel tracing) shipped before the feature work that depends on it.',
+    outcome: "Docs 01–30 shipped: the security gate, RBAC administration, observability, deploy pipeline, and E2E/perf baselines all closed out Phases 1–2, and Phase 6's first module-depth pass (doc 30 — Work Management Suite) is complete across all eight of its workstreams, with Phase 3 (SSO & SCIM) under way next.",
     metrics: [
-      { label: 'Microservices', value: '20+' },
-      { label: 'Uptime Target', value: '99.9%' },
-      { label: 'API Gateway Latency', value: '<100ms' },
-      { label: 'Architecture', value: 'SOC2 Ready' },
+      { label: 'Microservices', value: '22' },
+      { label: 'Data Models', value: '152' },
+      { label: 'Frontend Apps', value: '4' },
+      { label: 'Docs Shipped', value: '30+' },
     ],
-    technologies: ['Next.js', 'React', 'Microservices Architecture', 'API Gateway', 'Multi-Tenant Core', 'RBAC & SSO/SAML', 'AI Assistant', 'Tailwind CSS', 'Open REST API'],
+    technologies: ['Next.js', 'NestJS', 'Prisma', 'PostgreSQL', 'Redis', 'API Gateway', 'RBAC & SSO/SCIM', 'Azure AKS', 'Terraform'],
     image: '/images/cases/rocketcrm.png',
+    // Relative, not absolute: this is the same domain as this site
+    // (akechiwebcraft.com/akechi-crm via a Next.js Multi-Zones rewrite in
+    // next.config.ts), so a relative path resolves correctly in every
+    // environment — dev, staging, prod — with nothing to keep in sync.
+    liveUrl: '/akechi-crm',
     architecture: [
       {
         title: 'CRM, Projects & Billing Together',
-        description: 'Leads, contacts, companies, activities with a pipeline; project planning with Kanban and time logging; billing built in with plans, subscriptions, invoices. No integrations to babysit, no data silos.',
-        items: ['Unified CRM', 'Project module', 'Native billing', 'Time tracking'],
+        description: 'Leads, contacts, companies, activities with a pipeline; project and work management with Kanban, WBS and time logging; billing built in with plans, subscriptions, invoices. No integrations to babysit, no data silos.',
+        items: ['Unified CRM', 'Work management', 'Native billing', 'Time tracking'],
         accent: 'purple',
       },
       {
         title: 'Microservices Foundation',
-        description: '20+ independent microservices behind a single API gateway answering in under 100 milliseconds. Multi-tenant from day one with full isolation while sharing infrastructure engineered for 99.9% uptime.',
-        items: ['Independent scaling', 'Multi-tenant isolation', 'Fast gateway', 'High availability'],
+        description: '22 independent, database-per-service microservices behind a single API gateway. Multi-tenant from day one, every query scoped by a stamped tenant header, on infra that targets Azure AKS with a documented free-tier fallback path.',
+        items: ['Independent scaling', 'Database-per-service', 'Tenant-scoped queries', 'Azure + fallback infra'],
         accent: 'teal',
       },
       {
         title: 'Enterprise Security',
-        description: 'SOC2-ready architecture with RBAC down to the individual action, SSO/SAML for identity, full audit trail. Feature flags govern what each tenant can see.',
-        items: ['RBAC granularity', 'SSO integration', 'Audit trail', 'Compliance ready'],
+        description: 'Server-side deny-by-default authorization on every route, in-cluster network policies as defense-in-depth, full audit trail on every mutation, and a permission catalog so no permission string ever lives in component logic.',
+        items: ['Deny-by-default authz', 'Network policies', 'Audit trail', 'Permission catalog'],
         accent: 'blue',
       },
     ],
     capabilities: [
       {
         title: 'Unified Lifecycle',
-        description: 'CRM, projects, billing, and support all in one platform. No integrations means no data silos and no context-switching.',
-        tags: ['Unified Platform', 'Data Integrity', 'Workflows', 'Cross-Module Automation'],
+        description: 'CRM, projects, billing, and support all in one platform, aggregated into a single cross-module approvals inbox. No integrations means no data silos and no context-switching.',
+        tags: ['Unified Platform', 'Approvals Inbox', 'Workflows', 'Cross-Module Automation'],
       },
       {
-        title: 'AI & Automation',
-        description: 'Event-driven workflows automate cross-module actions. AI assistant answers questions, searches everything, drafts busywork.',
-        tags: ['Workflows', 'Events', 'AI Search', 'Automation'],
+        title: 'Observability & Ops',
+        description: 'Pino structured logging, Prometheus metrics, and OTel tracing on every service and the gateway, with real health aggregation and a free-tier Grafana/Loki/Jaeger stack for local and fallback environments.',
+        tags: ['Prometheus', 'OTel Tracing', 'Structured Logs', 'Health Aggregation'],
       },
       {
-        title: 'Developer & Enterprise Grade',
-        description: 'Open REST API with keys to integrate anything. Complete audit trail and role-based controls for enterprise compliance.',
-        tags: ['Open API', 'Extensibility', 'Audit Ready', 'Enterprise Grade'],
+        title: 'Accessible by Default',
+        description: 'CI-gated Storybook axe scans, real WCAG contrast checks, and keyboard/touch-accessible drag-and-drop everywhere native HTML5 DnD used to be the only path.',
+        tags: ['A11y CI', 'Keyboard DnD', 'Contrast Gate', 'Playwright E2E'],
       },
     ],
     solutionCards: [
       {
         title: 'Platform Cohesion',
         problem: 'Replacing five tools without building a tangled monolith risks the all-in-one trap.',
-        response: '20+ microservices communicate through events. Each module owns data, deploys independently, scales separately.',
+        response: '22 microservices each own their own database and deploy independently behind one gateway, communicating through contract events.',
         result: 'One seamless product for users. Independence and resilience for engineering.',
       },
       {
         title: 'Enterprise Trust',
         problem: 'Shared SaaS platforms must guarantee data isolation, granular access control, and complete accountability.',
-        response: 'Tenant isolation, RBAC, and audit built into the foundation. SOC2-ready architecture. Per-tenant feature flags.',
-        result: 'Enterprise security teams approve the architecture. Developers get guarantees.',
+        response: 'Deny-by-default authorization, tenant-scoped queries, and an audit trail on every mutation were built as Phase 1 of the roadmap, not retrofitted later.',
+        result: 'Every one of the 22 services enforces the same permission dialect server-side.',
       },
       {
-        title: 'Sales Simplicity',
-        problem: 'Microservices, multi-tenancy, RBAC, events are strong selling points but glaze the eyes of buyers.',
-        response: 'Marketing site leads with outcomes: "One platform for the whole customer lifecycle." Engineering story framed as reassurance.',
-        result: 'Non-technical buyers understand the promise. Technical teams verify depth.',
+        title: 'Depth Over Breadth',
+        problem: "Shipping 30 breadth documents can still leave individual modules shallow if depth work never gets scheduled.",
+        response: 'A binding numbered-document workflow requires 100% completion — acceptance criteria and testing checklist — before the next document opens, with a dedicated module-depth phase after breadth closes.',
+        result: 'Work Management Suite (doc 30) shipped complete across all eight of its workstreams as the first depth pass.',
       },
     ],
     delivery: [
-      { phase: 'Phase 01', title: 'Architecture & Engineering', description: 'Design 20+ microservices and API gateway. Plan multi-tenant isolation, RBAC, audit trail. Define event-driven workflows.' },
-      { phase: 'Phase 02', title: 'Product Build', description: 'Build CRM, projects, billing modules as independent services. Implement AI assistant. Set up admin and user dashboards.' },
-      { phase: 'Phase 03', title: 'Marketing Site', description: 'Create dark-themed Next.js site. Translate engineering into outcomes. Design dual funnel (self-serve and enterprise).' },
-      { phase: 'Phase 04', title: 'Launch & Growth', description: 'Set up free trial with no credit card. Launch transparent pricing. Activate both self-serve and sales funnels.' },
+      { phase: 'Phase 01', title: 'Security Gate', description: 'Unify the permission dialect, ship the authz guard package, and enforce server-side deny-by-default authorization across all 22 services.' },
+      { phase: 'Phase 02', title: 'Platform Hardening', description: 'Add RBAC administration, tenant security policies, full observability, CI/CD with automatic rollback, and an E2E + load-test baseline.' },
+      { phase: 'Phase 03', title: 'Identity & Access', description: 'Layer in SSO and SCIM provisioning on top of the hardened authorization core.' },
+      { phase: 'Phase 06', title: 'Module Depth', description: 'Revisit shipped modules one at a time for real depth — Work Management Suite first, complete across all eight workstreams.' },
     ],
     automationHighlights: [
-      { title: 'Event-Driven Workflows', description: 'Won deal automatically opens project, completed milestone triggers invoice. Cross-module actions happen automatically.', metric: 'Zero manual data entry' },
-      { title: 'Multi-Tenant Feature Flags', description: 'Each workspace gets exactly the modules it pays for. Feature flags govern visibility and capability.', metric: 'Per-tenant personalization' },
-      { title: 'AI-Powered Efficiency', description: 'AI assistant answers questions, searches across everything, drafts busywork. Turns system of record into system of action.', metric: '30%+ faster workflows' },
+      { title: 'Route Coverage Gate', description: 'CI fails if any controller route is missing a permission key or an explicit @Public() marker.', metric: 'Zero unguarded routes' },
+      { title: 'Cross-Module Approvals Inbox', description: 'Timesheets, deal governance, WBS plans and project requests aggregate into one inbox with optimistic approve/reject.', metric: '4 modules, 1 inbox' },
+      { title: 'Automatic Rollback Pipeline', description: 'Build-once deploys move through staging smoke tests to a manual-approval production gate, rolling back automatically on smoke failure.', metric: 'Zero manual rollback steps' },
     ],
     cta: {
       title: 'Want to Launch a SaaS Platform of Your Own?',
@@ -1309,6 +1314,209 @@ export const PROJECTS: Record<string, Project> = {
     cta: {
       title: 'Want to Sell a Commodity Product Like a Premium Brand?',
       description: 'If your product competes on trust and freshness that customers usually verify in person, Akechi Webcraft can design a storefront that proves it online.',
+    },
+  },
+  'akechi-trade': {
+    slug: 'akechi-trade',
+    title: 'AkechiTrade',
+    client: 'Internal Product',
+    category: 'AI Trading Platform',
+    description: 'AkechiTrade is an AI-powered market intelligence and paper-trading platform for Indian financial markets (NSE, BSE, MCX), combining a real-time data terminal, a sandbox trading engine, and a multi-agent AI research desk under SEBI Research Analyst governance.',
+    challenge: 'Retail traders in India are left choosing between bare-bones charting apps and expensive institutional terminals, with no risk-free way to test AI-assisted research against live market data before trusting it with real capital.',
+    solution: 'Built a full-stack platform on Azure and Azure Databricks: a real-time WebSocket market-data gateway, a virtual-money sandbox trading engine that models Indian brokerage/STT/GST charges exactly, and a LangGraph multi-agent research desk (five analysts plus a CIO) that produces daily pre-market recommendations behind an immutable audit trail and a human SEBI RA review gate.',
+    outcome: 'Currently in active build: seventeen backend services, six Databricks lakehouse packages, and the full Next.js terminal are landing against a complete engineering documentation suite, with compliance and audit-trail guardrails built in from day one rather than retrofitted before launch.',
+    metrics: [
+      { label: 'Services Shipped', value: '17' },
+      { label: 'AI Analyst Agents', value: '5 + CIO' },
+      { label: 'Markets Covered', value: 'NSE·BSE·MCX' },
+      { label: 'Compliance', value: 'SEBI RA Governed' },
+    ],
+    technologies: ['Next.js', 'FastAPI', 'LangGraph', 'Claude', 'Azure Databricks', 'PostgreSQL', 'Redis', 'Terraform'],
+    image: '/images/cases/case-2.png',
+    // Relative, not absolute: this is the same domain as this site
+    // (akechiwebcraft.com/akechi-trade via a Next.js Multi-Zones rewrite in
+    // next.config.ts), so a relative path resolves correctly in every
+    // environment — dev, staging, prod — with nothing to keep in sync.
+    liveUrl: '/akechi-trade',
+    architecture: [
+      {
+        title: 'Market Data Layer',
+        description: 'Real-time WebSocket gateway and Redis hot path feeding candles, options Greeks, and an alerts engine off a live exchange tape.',
+        items: ['WebSocket gateway', 'Redis hot path', 'Candles & Greeks', 'Alerts engine'],
+        accent: 'blue',
+      },
+      {
+        title: 'Sandbox Trading Engine',
+        description: 'Virtual-money order lifecycle with fill simulation and the full Indian charges stack — brokerage, STT/CTT, exchange fees, GST, stamp duty.',
+        items: ['Order lifecycle', 'Charges engine', 'Margin & risk checks', 'P&L accounting'],
+        accent: 'green',
+      },
+      {
+        title: 'AI Research Desk',
+        description: 'LangGraph multi-agent panel on Databricks Mosaic AI, publishing to an immutable audit trail behind a human RA review gate.',
+        items: ['LangGraph agents', 'Claude on Databricks', 'Audit trail', 'RA review gate'],
+        accent: 'purple',
+      },
+    ],
+    capabilities: [
+      {
+        title: 'Real-Time Terminal',
+        description: 'Live market data, option chains, and charting for NSE, BSE, MCX, currency, and mutual funds in one Next.js terminal.',
+        tags: ['Market Data', 'Options', 'Charting'],
+      },
+      {
+        title: 'Risk-Managed Paper Trading',
+        description: 'A sandbox engine that models real Indian order types (CNC/MIS/NRML/GTT/BO/CO) and charges against live prices with virtual money only.',
+        tags: ['Paper Trading', 'Risk Engine', 'Charges Model'],
+      },
+      {
+        title: 'Governed AI Recommendations',
+        description: 'A daily pre-market pipeline where AI-generated calls are scored, audited, and gated behind SEBI Research Analyst review before publication.',
+        tags: ['LangGraph', 'Compliance', 'Audit Trail'],
+      },
+      {
+        title: 'Graduate-to-Live Path',
+        description: 'A broker-bridge service behind four explicit gates — feature flag, versioned consent, step-up MFA, per-order confirmation — for users who choose to connect a real broker.',
+        tags: ['Broker Bridge', 'DPDP Consent', 'Kill Switch'],
+      },
+    ],
+    solutionCards: [
+      {
+        title: 'Research Without Risk',
+        problem: 'Traders have no safe way to see whether AI-generated research is actually good before risking real money on it.',
+        response: 'Built a sandbox engine on live market data so every AI call and every strategy can be paper-traded first, charges and all.',
+        result: 'A track record traders can inspect before they ever fund a live account.',
+      },
+      {
+        title: 'Compliance as Architecture',
+        problem: 'AI-generated financial content is an easy way to accidentally cross into unregistered investment advice.',
+        response: 'Wired the immutable audit trail and the human SEBI RA review gate into the publication pipeline itself, not as a policy layered on afterward.',
+        result: 'Every recommendation is traceable and reviewable by design, not by exception.',
+      },
+      {
+        title: 'India-Specific by Default',
+        problem: 'Generic trading platforms get Indian market mechanics wrong — settlement cycles, circuit bands, MCX lot sizing, CTT vs STT.',
+        response: 'Modeled Indian market calendars, charges, and product terms (CNC/MIS/NRML/GTT) directly into the shared packages every service imports.',
+        result: 'Domain correctness that does not have to be re-derived service by service.',
+      },
+    ],
+    delivery: [
+      { phase: '01', title: 'Specify', description: 'Write the SRD and binding architecture ADRs before code, covering compliance, data flows, and disaster recovery.' },
+      { phase: '02', title: 'Build the Platform', description: 'Land shared packages, the seventeen services, and the Databricks lakehouse against that spec.' },
+      { phase: '03', title: 'Wire Compliance In', description: 'Build the audit trail, SEBI RA review gate, and DPDP consent flows as load-bearing parts of the pipeline, not add-ons.' },
+      { phase: '04', title: 'Verify Without a Cluster', description: 'Give every lakehouse and infra package a deterministic CI gate that checks real invariants without needing Databricks or Terraform applied.' },
+      { phase: '05', title: 'Go Live', description: 'Work the go-live runbook — credentials, registrations, and the day-two rotation calendar — toward a supervised launch.' },
+    ],
+    automationHighlights: [
+      { title: 'Deterministic Compliance Gates', description: 'Each lakehouse package ships a pure-Python CI gate that checks its Databricks-reference semantics without a live cluster.', metric: '7 CI gates' },
+      { title: 'IaC Verified Before Apply', description: 'Terraform, Helm, and GitHub Actions are asserted against parsed files — naming, private access, deploy windows — before anything is ever applied.', metric: 'Zero live applies' },
+      { title: 'Audit-First Publication', description: 'Every AI recommendation writes to the immutable audit trail before it can be published, never after.', metric: '100% pre-publish audit' },
+    ],
+    cta: {
+      title: 'Building something that needs both AI research and real compliance guardrails?',
+      description: 'Akechi Webcraft can design and build platforms where AI, trading logic, and regulatory constraints have to work together from day one.',
+    },
+  },
+
+  'akechi-lms': {
+    slug: 'akechi-lms',
+    title: 'Akechi LMS',
+    client: 'Internal Product',
+    category: 'AI-First Enterprise LMS',
+    description: 'Akechi Lms is a multi-tenant, AI-first Enterprise Learning Management System serving schools, universities, coaching institutes, and corporate L&D under one white-labelled backend, built to scale to millions of learners across thousands of tenants.',
+    challenge: 'Schools, universities, coaching institutes, and corporate L&D teams each need a full LMS — courses, assessments, live classes, grading, finance, placements, HR — but every existing option forces a choice between a rigid single-tenant product or a fragile pile of point tools stitched together per customer.',
+    solution: 'Built as one NestJS modular-monolith backend and one Next.js 15 frontend around a trust layer shipped first: tenant isolation, identity, deny-by-default authorization, and audit — with every one of 31 vertical-slice modules built on top of it rather than bolted alongside it.',
+    outcome: 'Twenty-nine epics (E0–E28) have shipped against 60 Prisma migrations, with white-label branding per tenant, Postgres RLS enforcing isolation as the backstop behind every tenant-scoped query, and a Definition of Done that will not let a module ship without its permission keys, audit event, and accessibility pass.',
+    metrics: [
+      { label: 'Backend Modules', value: '31' },
+      { label: 'Epics Shipped', value: 'E0–E28' },
+      { label: 'DB Migrations', value: '60' },
+      { label: 'Target Scale', value: 'Thousands of Tenants' },
+    ],
+    technologies: ['NestJS 11', 'Next.js 15', 'Prisma 6', 'PostgreSQL 16', 'Redis', 'BullMQ', 'Socket.IO', 'Zod', 'Azure'],
+    image: '/images/cases/case-2.png',
+    // Absolute, unlike the other in-house products: the LMS is deployed on its
+    // own subdomain (lms.akechiwebcraft.com), so "Visit live site" goes there
+    // directly instead of through the /akechi-lms Multi-Zones rewrite in
+    // next.config.ts, which stays in place for the zone itself.
+    liveUrl: 'https://lms.akechiwebcraft.com',
+    architecture: [
+      {
+        title: 'Trust Layer Foundation',
+        description: 'Tenancy, identity, deny-by-default authorization, and audit are built first and shared by every module, not reimplemented per feature.',
+        items: ['Tenant-scoped queries', 'Permission catalog', 'Postgres RLS backstop', 'Domain event audit trail'],
+        accent: 'purple',
+      },
+      {
+        title: 'Modular Monolith Backend',
+        description: '31 vertical-slice NestJS modules — course, assess, live, grade, finance, crm, placement, hr, ai — each owning its own controller, service, repository, and domain layer.',
+        items: ['NestJS 11', 'Prisma 6', 'BullMQ jobs', 'Socket.IO realtime'],
+        accent: 'teal',
+      },
+      {
+        title: 'Role-Based Frontend',
+        description: "One Next.js 15 app renders every role's dashboard after a single login, with Zod contracts shared end-to-end between forms and the API.",
+        items: ['Next.js 15 App Router', 'React Query', 'Zustand', 'next-intl'],
+        accent: 'blue',
+      },
+    ],
+    capabilities: [
+      {
+        title: 'Multi-Tenant White-Labelling',
+        description: 'Schools, universities, coaching institutes, and corporate L&D each get branded tenant experiences on shared infrastructure, isolated at the database and query layer.',
+        tags: ['Multi-Tenant', 'White-Label', 'Postgres RLS'],
+      },
+      {
+        title: 'Deny-by-Default Authorization',
+        description: 'Every route carries an explicit permission key or is explicitly public; a permission catalog and route-coverage check keep the guard honest in CI.',
+        tags: ['RBAC', 'Permission Catalog', 'CI Enforced'],
+      },
+      {
+        title: 'Full Learning Lifecycle',
+        description: 'Courses, live classes, assessments, gradebook, attendance, certificates, finance, placements, and HR all ship as first-class modules, not add-ons.',
+        tags: ['Assessment', 'Live Classes', 'Gradebook', 'Finance'],
+      },
+      {
+        title: 'AI-First by Design',
+        description: 'An AI module and generation-usage tracking are built into the core schema from the first migration, not retrofitted after launch.',
+        tags: ['AI Generations', 'Usage Metering', 'Search'],
+      },
+    ],
+    solutionCards: [
+      {
+        title: 'Fragmented Point Tools',
+        problem: 'Institutes typically stitch together a course host, a video tool, a spreadsheet gradebook, and a separate CRM, with no shared identity or audit trail.',
+        response: 'Akechi Lms unifies courses, assessment, live classes, grading, finance, CRM, and placements behind one authenticated session and one permission model.',
+        result: '31 modules share one trust layer instead of 31 separate access-control implementations.',
+      },
+      {
+        title: 'Tenant Isolation at Scale',
+        problem: "A single misfiltered query in a multi-tenant system can leak one institute's learner data into another's dashboard.",
+        response: 'Every tenant-owned query filters on tenantId from the authenticated context, backed by Postgres RLS as the enforced last line of defense.',
+        result: 'Tenant isolation is a database-enforced invariant, not just an application-layer convention.',
+      },
+      {
+        title: 'Auditable by Construction',
+        problem: 'Regulators, universities, and enterprise L&D buyers all expect a real audit trail, not logs bolted on after an incident.',
+        response: 'Every mutation emits a domain event that lands in audit_logs and fans out to notifications, enforced by the module template itself.',
+        result: 'Every state change across all 31 modules is traceable from day one, not from whenever logging was added.',
+      },
+    ],
+    delivery: [
+      { phase: 'E0–E9', title: 'Trust Layer', description: 'Ship tenancy, identity, deny-by-default authorization, and the audit event pipeline every later module depends on.' },
+      { phase: 'E10–E18', title: 'Core Learning', description: 'Build courses, media, enrolments, batches, notifications, and the assessment and live-class engines.' },
+      { phase: 'E19–E24', title: 'Operations', description: 'Add gradebook weighting, attendance, finance, CRM/admissions, and placement tracking on the same trust layer.' },
+      { phase: 'E25–E28', title: 'Scale Features', description: 'Layer in HR, custom fields, approvals, integrity checks, and the module marketplace.' },
+      { phase: 'Ongoing', title: 'Deepen & Harden', description: "Most epics have shipped; work now deepens existing modules against the tracker's honest completeness percentage rather than starting new ones." },
+    ],
+    automationHighlights: [
+      { title: 'Outbox-Driven Notifications', description: 'A BullMQ worker drains the domain-event outbox into email, digests, retention jobs, and exports without blocking the request path.', metric: '1 worker, 5+ job types' },
+      { title: 'Route Coverage Gate', description: 'pnpm authz:check fails CI if any controller route is missing a permission key or an explicit @Public() marker.', metric: 'Zero unguarded routes' },
+      { title: 'GDPR Erasure Job', description: 'Soft-deleted, user-authored content is only hard-deleted through a scheduled erasure job, never an ad hoc query.', metric: 'Auditable data retention' },
+    ],
+    cta: {
+      title: 'Building a multi-tenant platform that needs real tenancy, not a shared schema with a WHERE clause?',
+      description: 'Akechi Webcraft can design and build platforms where tenant isolation, authorization, and audit are load-bearing from the first migration, not retrofitted before launch.',
     },
   },
 };

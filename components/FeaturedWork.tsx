@@ -7,7 +7,7 @@ import Link from "next/link";
 import { PROJECTS } from "@/lib/projects";
 
 // Featured slugs are drawn from the live portfolio so every card links to a real case study.
-const FEATURED_SLUGS = ["rocketcrm", "bahikhata-pro", "at-solar"];
+const FEATURED_SLUGS = ["akechi-crm", "bahikhata-pro", "at-solar"];
 
 const CASE_STUDIES = FEATURED_SLUGS.map((slug) => PROJECTS[slug]).filter(Boolean);
 

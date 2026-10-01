@@ -49,3 +49,8 @@ reference.md
 scratch_*.js
 temp_*.json
 temp_*.html
+
+# Colocated standalone project with its own git history/remote
+/akechi-trade
+/akechi-crm
+/akechi-lms

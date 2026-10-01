@@ -10,7 +10,7 @@ export const metadata = {
 
 
 
-const CLIENT_SLUGS = ['bahikhata-pro', 'ikonnic', 'lab-of-innovation', 'parcelace', 'raqz', 'rocketcrm', 'carohitvijay', 'at-solar', 'nh-dry-fruits'];
+const CLIENT_SLUGS = ['bahikhata-pro', 'ikonnic', 'lab-of-innovation', 'parcelace', 'raqz', 'akechi-crm', 'carohitvijay', 'at-solar', 'nh-dry-fruits', 'akechi-trade', 'akechi-lms'];
 
 export default function PortfolioPage() {
   const projectList = Object.values(PROJECTS).filter((p) => CLIENT_SLUGS.includes(p.slug));

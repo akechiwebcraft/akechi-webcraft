@@ -20,6 +20,21 @@ export const STATIC_ROUTES: StaticRoute[] = [
   { path: "/customers", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.7 },
+  // Proxied via next.config.ts's rewrite to akechi-trade/apps/web's own
+  // Vercel deployment (Next.js Multi-Zones) — this entry is only what the
+  // sitemap and 404/known-route gating need to know from here. The pages
+  // beneath it are that app's own routes and its own concern, not this one's.
+  { path: "/akechi-trade", changeFrequency: "weekly", priority: 0.8 },
+  // Proxied via next.config.ts's rewrite to akechi-lms/apps/web's own
+  // Vercel deployment (Next.js Multi-Zones) — this entry is only what the
+  // sitemap and 404/known-route gating need to know from here. The pages
+  // beneath it are that app's own routes and its own concern, not this one's.
+  { path: "/akechi-lms", changeFrequency: "weekly", priority: 0.8 },
+  // Proxied via next.config.ts's rewrite to akechi-crm/apps/marketing's own
+  // Vercel deployment (Next.js Multi-Zones) — this entry is only what the
+  // sitemap and 404/known-route gating need to know from here. The pages
+  // beneath it are that app's own routes and its own concern, not this one's.
+  { path: "/akechi-crm", changeFrequency: "weekly", priority: 0.8 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.9 },
   { path: "/search", changeFrequency: "yearly", priority: 0.2, noIndex: true },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
